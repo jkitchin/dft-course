@@ -1,4 +1,13 @@
-dft-course
-==========
-
+* dft-course
 Course repository for 06-640 - Molecular simulation
+
+Get your copy of the course with this command:
+#+BEGIN_SRC sh
+git clone git://github.com/jkitchin/dft-course.git
+#+END_SRC
+
+
+Update your copy of the course with this command:
+#+BEGIN_SRC sh
+git pull
+#+END_SRC
