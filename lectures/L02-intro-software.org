@@ -14,12 +14,18 @@
 #+LINK_HOME:
 #+XSLT:
 
-
+#+PROPERTY:  results output verbatim
+#+PROPERTY:  exports both
 http://www.greenteapress.com/thinkpython/thinkpython.pdf
 
 * Python
+Download the Enthought python distribution (
+http://www.enthought.com/repo/.epd_academic_installers). This distribution bundles a lot of additional python modules such as numpy and scipy that we will be using later.
+
 ** Simple calculations
-Python is a lot like Matlab for simple math.
+Python is a lot like Matlab for simple math. A good overview of the basic operators can be found at http://www.tutorialspoint.com/python/python_basic_operators.htm
+
+Here are some simple examples
 #+BEGIN_SRC python :results output
 print 2+3
 #+END_SRC
@@ -27,12 +33,12 @@ print 2+3
 #+RESULTS:
 : 5
 
-
+Note some tricky issues with division. Python distinguishes between integer division and float division. In the first line we have integer division, where the remainder is discarded and an integer is returned. If any number is a float (indicated by a decimal or because it is converted to a float) then a float is returned.
 #+BEGIN_SRC python :results output
 print 2/3
 print 2./3.
 print 2/3.
-print 2/float(3)  # the
+print 2/float(3)  # the float function casts the integer to a float
 #+END_SRC
 
 #+RESULTS:
@@ -41,20 +47,268 @@ print 2/float(3)  # the
 : 0.666666666667
 : 0.666666666667
 
+#+BEGIN_SRC python :results output
+print 2*3
+print 2*3.0
+#+END_SRC
 
+#+RESULTS:
+: 6
+: 6.0
+
+We can also do powers with =**=
+
+#+BEGIN_SRC python :results output
+print 2**3
+print 2**0.5
+print 2^4    # Binary XOR operator!
+#+END_SRC
+
+#+RESULTS:
+: 8
+: 1.41421356237
+: 6
+
+The modulus operator (%)divides the left hand operand by the right hand operand and returns the remainder.
+
+#+BEGIN_SRC python :results output
+print 5 % 4
+print 5. % 4.
+#+END_SRC
+
+#+RESULTS:
+: 1
+: 1.0
 
 ** Formatted printing
 http://docs.python.org/library/stdtypes.html#string-formatting-operations
 
+We will usually want to print more than a number, e.g. some descriptive text and the number. We also will want to format numbers so we do not see 9 decimal places all the time. We use string formatting for that. Here are some typical examples.
+
+In a string we can specify where to put numbers with positional arguments like {0}. That says take the first argument (python starts counting at zero) and put it in place of {0}.
+
+#+BEGIN_SRC python :results output
+a = 4.5 + 3
+print 'The answer is {0}'.format(a)
+#+END_SRC
+
+#+RESULTS:
+: The answer is 7.5
+
+
+We can have more than one number to format like this.
+#+BEGIN_SRC python :results output
+a = 5**3
+b = 23
+print 'a = {1} and b = {0}'.format(b,a)
+#+END_SRC
+
+#+RESULTS:
+: a = 125 and b = 23
+
+Alternatively, we can use named arguments to specify the values. It is your choice which one to do. Named arguments require more typing, but are easier to understand.
+#+BEGIN_SRC python :results output
+a = 5**3
+b = 23
+print 'a = {ans0} and b = {ans1}'.format(ans0=a,
+                                         ans1=b)
+#+END_SRC
+
+#+RESULTS:
+: a = 125 and b = 23
+
+To do formatting, we need additional syntax. We use {i:format} to specify how the value should be formatted. Here we show how to specify only three decimal places on a results.
+#+BEGIN_SRC python :results output
+a = 2./3.
+print 'a = {0}'.format(a)
+print 'a = {0:1.3f}'.format(a)
+#+END_SRC
+
+#+RESULTS:
+: a = 0.666666666667
+: a = 0.667
+
 ** Data types
 Numeric types http://docs.python.org/library/stdtypes.html#numeric-types-int-float-long-complex
+
 strings http://docs.python.org/library/stdtypes.html#string-methods
-lists/tuples  http://docs.python.org/library/stdtypes.html#sequence-types-str-unicode-list-tuple-bytearray-buffer-xrange
-dictionaries http://docs.python.org/library/stdtypes.html#mapping-types-dict
+
+
+*** lists/tuples  http://docs.python.org/library/stdtypes.html#sequence-types-str-unicode-list-tuple-bytearray-buffer-xrange
+
+Lists and tuples are similar in that they are both sets of data. A list is delimited by [] (square brackets) and a tuple is delimited by () (parentheses). The difference between them is a list can be changed after it is created (it is mutable), but a tuple cannot (it is immutable).
+
+#+BEGIN_SRC python :results output
+# short list example
+a = [1, 2, 3, 4] # a list
+print a
+print len(a)
+print a[0] # first element
+print a[-1] # last element
+print a[3]  # also last element
+print 2*a   # surprise!!!
+#+END_SRC
+
+#+RESULTS:
+: [1, 2, 3, 4]
+: 4
+: 1
+: 4
+: 4
+: [1, 2, 3, 4, 1, 2, 3, 4]
+
+We can create a list with the =range= command:
+
+#+BEGIN_SRC python :results output
+a = range(4)
+print a
+
+b = range(4,10)
+print b
+
+print a + b  # surprise again!!!
+#+END_SRC
+
+#+RESULTS:
+: [0, 1, 2, 3]
+: [4, 5, 6, 7, 8, 9]
+: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+Note that algebraic/math operations are not defined for lists the way they are for Matlab. We have to use =numpy.array= for that, which we will see later.
+
+#+BEGIN_SRC python :results output
+# short list example
+a = [1, 2, 3, 4] # a list
+print a
+a[1] = 56 # change the value of 2nd element
+print a
+#+END_SRC
+
+#+RESULTS:
+: [1, 2, 3, 4]
+: [1, 56, 3, 4]
+
+Tuples are like lists e
+#+BEGIN_SRC python :results output
+a = (1,2,3,4)
+print len(a)
+print a[0]
+print a[-1]
+# a[1] = 56 this is not allowed!
+#+END_SRC
+
+#+RESULTS:
+: 4
+: 1
+: 4
+
+*** dictionaries
+http://docs.python.org/library/stdtypes.html#mapping-types-dict
+
+Dictionaries provide labeled access to data. A dictionary is defined by {key:value} (curly brackets). Almost anything can be a key, except a list.
+
+#+BEGIN_SRC python :results output
+d = {'key1':23,
+     'key2':'test',
+     5:[2,3],
+     (3,4):'tuple value'}
+
+print d['key1']
+print d['key2']
+print d[5]
+print d[(3,4)]
+
+defaultvalue = None
+print d.get('invalidkey', defaultvalue) # default value for nonexistant keys
+#+END_SRC
+
+#+RESULTS:
+: 23
+: test
+: [2, 3]
+: tuple value
+: None
 
 ** Conditional statements
 conditional operators http://docs.python.org/library/stdtypes.html#comparisons
-if/elif/else
+
+Python has the standard conditional operators for testing if a quantity is equal to (==), less than (<), greater than (>), lessthan or equal to (<=) greater than or equal to (>=) and not equal (!=). These generally work on numbers and strings.
+
+#+BEGIN_SRC python :results output
+print 4 == 4.
+print 'a' != 'A'
+print 4 > 3
+print 4 <= 3
+print 'a' < 'b' # hmmm....
+#+END_SRC
+
+#+RESULTS:
+: True
+: True
+: True
+: False
+: True
+
+We use these conditional operators to determine whether conditional statements should be run or not.
+
+#+BEGIN_SRC python :results output
+a = 4
+b = 5
+
+if a < b:
+    print 'a is less than b'
+#+END_SRC
+
+#+RESULTS:
+: a is less than b
+
+In this next example we use an =else= statement. Note the logic is not complete, if a=b in this case, we would get the statement "a is less than b" printed.
+#+BEGIN_SRC python :results output
+a = 14
+b = 5
+
+if a > b:
+    print 'a is greater than b'
+else:
+    print 'a is less than b'
+#+END_SRC
+
+#+RESULTS:
+: a is greater than b
+
+Here is a more complete logic that uses =elif= to add an additional logic clause.
+#+BEGIN_SRC python :results output
+a = 4
+b = 4
+if a > b:
+    print 'a is greater than b'
+elif a == b:
+    print 'a is equal to b'
+else:
+    print 'a is less than b'
+#+END_SRC
+
+#+RESULTS:
+: a is equal to b
+
+Finally, to illustrate that the first conditional statement that evaluates to True is evaluated, consider this example:
+#+BEGIN_SRC python :results output
+a = 4
+b = 4
+if a > b:
+    print 'a is greater than b'
+elif a >= b:
+    print 'a is greater than or equal to b'
+elif a == b:
+    print 'a is equal to b'
+elif a <= b:
+    print 'a is less than or equal to b'
+else:
+    print 'a is less than b'
+#+END_SRC
+
+#+RESULTS:
+: a is greater than or equal to b
 
 ** Loops
 http://docs.python.org/tutorial/datastructures.html#looping-techniques
@@ -62,42 +316,220 @@ for
 while/break/continue
 enumerate, zip
 
+#+BEGIN_SRC python :results output
+for i in [0,1,2,3]:
+    print i
+
+
+for i in range(4):
+    print i
+#+END_SRC
+
 ** functions
 http://docs.python.org/tutorial/controlflow.html#defining-functions
-def
 
-** Classes and objects
+We can define functions with the =def= statement, and specify what they =return=
+#+BEGIN_SRC python
+def myfunc(x):
+    return x*x
+print myfunc(3)
+print myfunc(x=3)
+#+END_SRC
+
+#+RESULTS:
+: 9
+: 9
+
+
+** Classes and objects                                             :noexport:
 http://docs.python.org/tutorial/classes.html
 
 ** Modules
 http://docs.python.org/tutorial/modules.html
-import
-import/as
+
+The default Python environment has minimal functionality. We can =import= additional functionality from modules. The full standard library is documented at http://docs.python.org/library/. It is not likely you will use everything there, but it is helpful to be familiar with what is available so you do not reinvent solutions.
+
+We import modules, and then we can access functions inthe module with the =.= operator.
+
+#+BEGIN_SRC python
+# list contents of current directory
+import os
+for item in os.listdir('.'):
+    print item
+#+END_SRC
+
+#+RESULTS:
+: L01-intro-molecular-simulations.pptx
+: L01-intro-to-dft.pdf
+: L02-intro-software.html
+: L02-intro-software.org
+: L02-intro-software.pdf
+: L02-intro-software.tex
+: L02-plot1.png
+
+You can import exactly what you need also with the =from/import= syntax
+#+BEGIN_SRC python
+# list contents of current directory
+from os import listdir
+for item in listdir('.'):
+    print item
+#+END_SRC
+
+#+RESULTS:
+: #L02-intro-software.org#
+: L01-intro-molecular-simulations.pptx
+: L01-intro-to-dft.pdf
+: L02-intro-software.html
+: L02-intro-software.org
+: L02-intro-software.pdf
+: L02-intro-software.tex
+: L02-plot1.png
+
+Finally, you can change the name of a module. This may be done for readability, or to shorten the amount of typing.
+#+BEGIN_SRC python
+# list contents of current directory
+import os as operating_system
+for item in operating_system.listdir('.'):
+    print item
+#+END_SRC
+
+#+RESULTS:
+: L01-intro-molecular-simulations.pptx
+: L01-intro-to-dft.pdf
+: L02-intro-software.html
+: L02-intro-software.org
+: L02-intro-software.pdf
+: L02-intro-software.tex
+: L02-plot1.png
 
 *** Some common standard modules
 http://docs.python.org/tutorial/stdlib.html
-os, sys, glob, commands, re
+os, sys, glob,  re
 
-** file I/O
-reading,
+** file I/O                                                        :noexport:
+reading, writing files
 http://docs.python.org/library/stdtypes.html#file-objects
 
 ** Error handling
 http://docs.python.org/tutorial/errors.html
-try/except
 
-** Plotting in python
-http://matplotlib.sourceforge.net/
-matplotlib
+Errors happen, and when they do they usually kill your script. Sometimes that is not desirable, and it is nice to catch errors, handle them, and keep on going. When errors occur in python, an Exception is raised. We can use =try/except= code blocks to try some code, and then respond to any exceptions that occur.
+
+#+BEGIN_SRC python :results output
+try:
+    1/0
+except ZeroDivisionError, e:
+    print e
+    print 'an error was found'
+#+END_SRC
+
+#+RESULTS:
+: integer division or modulo by zero
+: an error was found
 
 ** Scientific and numerical python
 *** numpy
 http://docs.scipy.org/doc/numpy/reference/
-arrays, linear algebra, polynomials
+
+#+BEGIN_SRC python :results output
+import numpy as np
+a = np.array([1,2,3,4])
+
+print a*a          # element-wise operation
+
+print np.dot(a,a)  # linear-algebra dot product
+#+END_SRC
+
+#+RESULTS:
+: [ 1  4  9 16]
+: 30
+
+Numpy defines lots of functions that operate element-wise on arrays.
+
+#+BEGIN_SRC python
+import numpy as np
+a = np.array([1, 2, 3, 4])
+print a**2
+print np.sin(a)
+print np.exp(a)
+print np.sqrt(a)
+#+END_SRC
+
+#+RESULTS:
+: [ 1  4  9 16]
+: [ 0.84147098  0.90929743  0.14112001 -0.7568025 ]
+: [  2.71828183   7.3890561   20.08553692  54.59815003]
+: [ 1.          1.41421356  1.73205081  2.        ]
+
+#+BEGIN_SRC python
+import numpy as np
+a = np.array([1, 2, 3, 4])
+print a.min(), a.max()
+print a.sum()  # sum of elements
+print a.mean() # average
+print a.std()  # standard deviation
+#+END_SRC
+
+#+RESULTS:
+: 1 4
+: 10
+: 2.5
+: 1.11803398875
+
 
 *** scipy
 http://docs.scipy.org/doc/scipy/reference/
-fitting, root finding, statistics, ODEs, interpolation, optimization
+
+=scipy= provides all the functionality we need for fitting, root finding, statistics, ODEs, interpolation, and optimization. Here is a typical usage for solving the equation $x^2 = 2$ for $x$. We have to define a function that is $f(x) = 0$, and then use the =scipy.optimize.fsolve= function to solve it with an initial guess.
+
+#+BEGIN_SRC python
+from scipy.optimize import fsolve
+
+def f(x):
+    y = 2 - x**2
+    return y
+
+x0 = 1.4
+x = fsolve(f, x0)
+print x
+print type(x)
+#+END_SRC
+
+#+RESULTS:
+: [ 1.41421356]
+: <type 'numpy.ndarray'>
+
+
+** Plotting in python
+http://matplotlib.sourceforge.net/
+=matplotlib= is the prime plotting module for python. The syntax is similar to Matlab. The best way to learn matplotlib is to visit the gallery (http://matplotlib.sourceforge.net/gallery.html) and look for examples that do what you want. Here is a simple example.
+
+#+BEGIN_SRC python
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0,2*np.pi)
+y = np.sin(x)
+
+plt.plot(x,y)
+plt.plot(x,np.cos(x))
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+plt.legend(['sin(x)', 'cos(x)'], loc='best')
+plt.savefig('L02-plot1.png')
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+
+[[./L02-plot1.png']]
 
 * git
+for windows, you need to install Git for windows from http://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git
+
+Then, go to http://github.com and register for an account. Make sure to follow the instructions at https://help.github.com/articles/generating-ssh-keys for setting up your ssh keys.
+
 * emacs
+A recent pre-compiled version of emacs for windows is available at http://ftp.gnu.org/gnu/emacs/windows/emacs-24.1-bin-i386.zip
+
+you unzip this file where you want it, and run $ROOT/emacs-24.1/bin/runemacs.exe where $ROOT is where you unzipped the file.
