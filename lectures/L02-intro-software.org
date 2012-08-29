@@ -529,9 +529,8 @@ plt.savefig('L02-plot1.png')
 plt.show()
 #+END_SRC
 
-#+RESULTS:
 
-[[./L02-plot1.png']]
+[[./L02-plot1.png]]
 
 * git
 for windows, you need to install Git for windows from http://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git
