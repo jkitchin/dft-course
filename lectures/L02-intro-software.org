@@ -16,6 +16,9 @@
 
 #+PROPERTY:  results output verbatim
 #+PROPERTY:  exports both
+
+
+If you need a total introduction to python, you might start here:
 http://www.greenteapress.com/thinkpython/thinkpython.pdf
 
 * Python
@@ -28,10 +31,16 @@ Python is a lot like Matlab for simple math. A good overview of the basic operat
 Here are some simple examples
 #+BEGIN_SRC python :results output
 print 2+3
+print 4-6
+print 2*8
+print 4.0 / 6.0
 #+END_SRC
 
 #+RESULTS:
 : 5
+: -2
+: 16
+: 0.666666666667
 
 Note some tricky issues with division. Python distinguishes between integer division and float division. In the first line we have integer division, where the remainder is discarded and an integer is returned. If any number is a float (indicated by a decimal or because it is converted to a float) then a float is returned.
 #+BEGIN_SRC python :results output
@@ -117,7 +126,7 @@ print 'a = {ans0} and b = {ans1}'.format(ans0=a,
 #+RESULTS:
 : a = 125 and b = 23
 
-To do formatting, we need additional syntax. We use {i:format} to specify how the value should be formatted. Here we show how to specify only three decimal places on a results.
+To do formatting, we need additional syntax. We use {i:format} to specify how the value should be formatted. Here we show how to specify only three decimal places on a results. See [[http://docs.python.org/library/stdtypes.html#string-formatting-operations][this link]] for a lot more details of formatting strings.
 #+BEGIN_SRC python :results output
 a = 2./3.
 print 'a = {0}'.format(a)
@@ -134,7 +143,7 @@ Numeric types http://docs.python.org/library/stdtypes.html#numeric-types-int-flo
 strings http://docs.python.org/library/stdtypes.html#string-methods
 
 
-*** lists/tuples  http://docs.python.org/library/stdtypes.html#sequence-types-str-unicode-list-tuple-bytearray-buffer-xrange
+*** lists/tuples
 
 Lists and tuples are similar in that they are both sets of data. A list is delimited by [] (square brackets) and a tuple is delimited by () (parentheses). The difference between them is a list can be changed after it is created (it is mutable), but a tuple cannot (it is immutable).
 
