@@ -1,0 +1,103 @@
+#+TITLE:     Introduction to software
+#+AUTHOR:    John Kitchin
+#+EMAIL:     jkitchin@cmu.edu
+#+DATE:      2012-08-28 Tue
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+
+http://www.greenteapress.com/thinkpython/thinkpython.pdf
+
+* Python
+** Simple calculations
+Python is a lot like Matlab for simple math.
+#+BEGIN_SRC python :results output
+print 2+3
+#+END_SRC
+
+#+RESULTS:
+: 5
+
+
+#+BEGIN_SRC python :results output
+print 2/3
+print 2./3.
+print 2/3.
+print 2/float(3)  # the
+#+END_SRC
+
+#+RESULTS:
+: 0
+: 0.666666666667
+: 0.666666666667
+: 0.666666666667
+
+
+
+** Formatted printing
+http://docs.python.org/library/stdtypes.html#string-formatting-operations
+
+** Data types
+Numeric types http://docs.python.org/library/stdtypes.html#numeric-types-int-float-long-complex
+strings http://docs.python.org/library/stdtypes.html#string-methods
+lists/tuples  http://docs.python.org/library/stdtypes.html#sequence-types-str-unicode-list-tuple-bytearray-buffer-xrange
+dictionaries http://docs.python.org/library/stdtypes.html#mapping-types-dict
+
+** Conditional statements
+conditional operators http://docs.python.org/library/stdtypes.html#comparisons
+if/elif/else
+
+** Loops
+http://docs.python.org/tutorial/datastructures.html#looping-techniques
+for
+while/break/continue
+enumerate, zip
+
+** functions
+http://docs.python.org/tutorial/controlflow.html#defining-functions
+def
+
+** Classes and objects
+http://docs.python.org/tutorial/classes.html
+
+** Modules
+http://docs.python.org/tutorial/modules.html
+import
+import/as
+
+*** Some common standard modules
+http://docs.python.org/tutorial/stdlib.html
+os, sys, glob, commands, re
+
+** file I/O
+reading,
+http://docs.python.org/library/stdtypes.html#file-objects
+
+** Error handling
+http://docs.python.org/tutorial/errors.html
+try/except
+
+** Plotting in python
+http://matplotlib.sourceforge.net/
+matplotlib
+
+** Scientific and numerical python
+*** numpy
+http://docs.scipy.org/doc/numpy/reference/
+arrays, linear algebra, polynomials
+
+*** scipy
+http://docs.scipy.org/doc/scipy/reference/
+fitting, root finding, statistics, ODEs, interpolation, optimization
+
+* git
+* emacs
