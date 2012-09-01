@@ -23,6 +23,11 @@
 ; use syntax highlighting in org-file
 (setq org-src-fontify-natively t)
 
+; set default :results to output
+(setq org-babel-default-header-args
+      (cons '(:results . "output")
+	    (assq-delete-all :results org-babel-default-header-args)))
+
 ; you can further customize by creating a new lisp file and
 ;uncommenting this line
 ; (load-file "yourcustom.el")
