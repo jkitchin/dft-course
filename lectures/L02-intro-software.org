@@ -485,11 +485,121 @@ print a.std()  # standard deviation
 : 2.5
 : 1.11803398875
 
+**** Linear algebra
+=numpy.linalg= provides a lot of the linear algebra functionality we need. See http://docs.scipy.org/doc/numpy/reference/routines.linalg.html for details of all the things that are possible. For example, given these linear equations:
+
+x + y = 3
+x - y = 1
+
+we can represent these equations in matrix form $A x = b$ where
+
+$A = [1 1 \\ 1 -1]$ and $b=[3 \\ 1]$. Finally we solve them as:
+
+#+BEGIN_SRC python
+import numpy as np
+import numpy.linalg as la
+
+A = np.array([[1, 1],[1, -1]])
+b = np.array([3, 1])
+print la.solve(A, b)
+#+END_SRC
+
+#+RESULTS:
+: [ 2.  1.]
+
+You might be familiar with the following solution:
+
+$x = A^-1 b$
+
+We can also compute that:
+
+#+BEGIN_SRC python
+import numpy as np
+import numpy.linalg as la
+
+A = np.array([[1, 1],[1, -1]])
+b = np.array([3, 1])
+
+print np.dot(la.inv(A), b)
+#+END_SRC
+
+#+RESULTS:
+
+Finally, we can do linear least squares easily. Suppose we have these three equations, and two unknowns:
+
+x + y = 3
+x - y = 1
+x - y = 0.9
+
+#+BEGIN_SRC python
+import numpy as np
+import numpy.linalg as la
+
+A = np.array([[1, 1],
+              [1, -1],
+              [1, -1]])
+b = np.array([3, 1, 0.9])
+
+[x, residuals, rank, s] = la.lstsq(A,b)
+print x
+#+END_SRC
+
+#+RESULTS:
+: [ 1.975  1.025]
+
+**** Polynomials
+=numpy= can do polynomials too. We express polynomials by the coefficients in front of the powers of $x$, e.g. $4 x^2 + 2x - 1 = 0$ is represented by [4, 2, -1].
+
+#+BEGIN_SRC python
+import numpy as np
+p = [4, 2, -1]
+print np.roots(p)
+#+END_SRC
+
+#+RESULTS:
+: [-0.80901699  0.30901699]
+
+#+BEGIN_SRC python
+import numpy as np
+p = [4, 2, -1]
+print np.polyder(p) # coefficients of the derivative
+print np.polyint(p)
+#+END_SRC
+
+#+RESULTS:
+: [8 2]
+: [ 1.33333333  1.         -1.          0.        ]
+
+We can also readily evaluate polynomials at specific points:
+#+BEGIN_SRC python
+import numpy as np
+p = [4,2,-1]
+print np.polyval(p,[0, 1, 2])
+#+END_SRC
+
+#+RESULTS:
+: [-1  5 19]
+
+Polynomials are very convenient functions to fit to data. the =numpy.polyfit= command does this, and returns the coefficients.
+
+#+BEGIN_SRC python
+import numpy as np
+x = [0, 2, 3, 4]
+y = [1, 5, 7, 9]
+p = np.polyfit(x, y, 1)
+print 'slope = {0}\nintercept = {1}'.format(*p)
+print p
+#+END_SRC
+
+#+RESULTS:
+: slope = 2.0
+: intercept = 1.0
+: [ 2.  1.]
 
 *** scipy
 http://docs.scipy.org/doc/scipy/reference/
 
-=scipy= provides all the functionality we need for fitting, root finding, statistics, ODEs, interpolation, and optimization. Here is a typical usage for solving the equation $x^2 = 2$ for $x$. We have to define a function that is $f(x) = 0$, and then use the =scipy.optimize.fsolve= function to solve it with an initial guess.
+=scipy= provides all the functionality we need for [[http://docs.scipy.org/doc/scipy/reference/tutorial/integrate.html][integration]], [[http://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html][optimization]], [[http://docs.scipy.org/doc/scipy/reference/tutorial/interpolate.html][interpolation]], [[http://docs.scipy.org/doc/scipy/reference/tutorial/stats.html][statistics]], and [[http://docs.scipy.org/doc/scipy/reference/tutorial/io.html][File I/O]]. Here is a typical usage for solving the equation $x^2 = 2$ for $x$. We have to define a function that is $f(x) = 0$, and then use the =scipy.optimize.fsolve= function to solve it with an initial guess.
 
 #+BEGIN_SRC python
 from scipy.optimize import fsolve
@@ -508,6 +618,29 @@ print type(x)
 : [ 1.41421356]
 : <type 'numpy.ndarray'>
 
+**** Confidence intervals
+#+BEGIN_SRC python :results output :exports both
+import numpy as np
+from scipy.stats.distributions import  t
+
+n = 10 #number of measurements
+dof = n - 1 #degrees of freedom
+avg_x = 16.1 #average measurement
+std_x = 0.01 #standard deviation of measurements
+
+#Find 95% prediction interval for next measurement
+
+alpha = 1.0 - 0.95
+
+pred_interval = t.ppf(1-alpha/2.,dof)*std_x*np.sqrt(1.+1./n)
+
+s = ['We are 95%% confident the next measurement',
+       ' will be between %1.3f and %1.3f']
+print ''.join(s) % (avg_x - pred_interval, avg_x + pred_interval)
+#+END_SRC
+
+#+RESULTS:
+: We are 95% confident the next measurement will be between 16.076 and 16.124
 
 ** Plotting in python
 http://matplotlib.sourceforge.net/
@@ -532,10 +665,23 @@ plt.show()
 
 [[./L02-plot1.png]]
 
+
+
 * git
 for windows, you need to install Git for windows from http://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git
 
 Then, go to http://github.com and register for an account. Make sure to follow the instructions at https://help.github.com/articles/generating-ssh-keys for setting up your ssh keys.
+
+** Getting the initial copy of the notes
+
+Run this command in git-bash to get the initial copy of the repository.
+#+BEGIN_SRC sh
+git clone git://github.com/jkitchin/dft-course.git
+#+END_SRC
+This creates a new directory called dft-course in the directory you ran the command in. Later, you can update the repository with this command (you run this insie the repository):
+#+BEGIN_SRC sh
+git pull
+#+END_SRC
 
 * emacs
 A recent pre-compiled version of emacs for windows is available at http://ftp.gnu.org/gnu/emacs/windows/emacs-24.1-bin-i386.zip
