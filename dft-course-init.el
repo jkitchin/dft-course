@@ -1,3 +1,12 @@
+;; turn on font-lock mode
+(global-font-lock-mode t)
+
+(show-paren-mode 1)
+(line-number-mode 1)
+
+;disable backup
+(setq backup-inhibited t)
+
 ; register python in org-mode
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -13,3 +22,7 @@
 
 ; use syntax highlighting in org-file
 (setq org-src-fontify-natively t)
+
+; you can further customize by creating a new lisp file and
+;uncommenting this line
+; (load-file "yourcustom.el")
