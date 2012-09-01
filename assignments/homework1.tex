@@ -1,0 +1,98 @@
+% Created 2012-09-01 Sat 08:34
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{fixltx2e}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{minted}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage[linktocpage,
+  pdfstartview=FitH,
+  colorlinks,
+  linkcolor=blue,
+  anchorcolor=blue,
+  citecolor=blue,
+  filecolor=blue,
+  menucolor=blue,
+  urlcolor=blue]{hyperref}
+\usepackage{attachfile}
+\tolerance=1000
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{Homework 1 - Due 9/6/2012}
+\author{John Kitchin}
+\date{2012-09-01 Sat}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.11}}
+
+\begin{document}
+
+\maketitle
+
+
+
+Instructions: All calculations should be performed in python. You should turn in the code used, and the answers you got.
+
+\section{Signup for an account at gitHub.}
+\label{sec-1}
+
+Print your username here:
+
+Set yourself up to \href{http://www.quora.com/GitHub/What-does-it-mean-to-watch-in-GitHub}{watch}
+\href{https://github.com/jkitchin/dft-course}{https://github.com/jkitchin/dft-course} and
+\href{https://github.com/jkitchin/dft-book}{https://github.com/jkitchin/dft-book}.
+\section{Read Chapter 1 in the text book.}
+\label{sec-2}
+\section{Read Section 4 in dft-book.}
+\label{sec-3}
+
+As part of this assignment, please turn in a pdf copy of dft-book that has been annotated by sticky notes using Adobe Acrobat Reader (you should be able to type Ctrl-6 to get a sticky note while the pdf is open, and then you can move it where you want and type text in it.). Please note any typos, places that are confusing, etc\ldots{}
+\section{Data fitting.}
+\label{sec-4}
+
+Fit a cubic polynomial to this set of data and estimate the lattice constant that minimizes the total energy. Prepare a figure that shows the data, your fit and your estimated minimum. Hints: \texttt{numpy.polyfit}, \texttt{numpy.polyder}, \texttt{numpy.roots}, \texttt{numpy.linspace}, \texttt{numpy.polyval} will all help you do this easily.
+
+
+\begin{center}
+\begin{tabular}{rr}
+ lattice constant ($\AA$)  &  Total Energy (eV)  \\
+\hline
+                      3.5  &          -3.649238  \\
+                     3.55  &          -3.696204  \\
+                      3.6  &          -3.719946  \\
+                     3.65  &          -3.723951  \\
+                      3.7  &          -3.711284  \\
+                     3.75  &           -3.68426  \\
+\end{tabular}
+\end{center}
+\section{Nonlinear algebra}
+\label{sec-5}
+
+Solve this equation: $\sin(x^2) = 0.5$ for $x$. Prepare a plot of the function and show where your solution is. Hint: \texttt{scipy.optimize.fsolve}
+\section{Linear algebra}
+\label{sec-6}
+
+Solve these equations using python and linear algebra:
+
+\begin{eqnarray}
+a0 - 3 a1 + 9 a2 - 27 a3 = -2 \\
+a0 - a1 + a2 - a3 = 2 \\
+a0 + a1 + a2 + a3 = 5 \\
+a0 + 2a1 + 4 a2 + 8 a3 = 1
+\end{eqnarray}
+
+Use linear algebra to verify your solution. Hint: see \texttt{numpy.linalg}, \texttt{numpy.dot}.
+
+\end{document}

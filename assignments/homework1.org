@@ -1,0 +1,58 @@
+#+TITLE:     Homework 1 - Due 9/6/2012
+#+AUTHOR:    John Kitchin
+#+EMAIL:     jkitchin@cmu.edu
+#+DATE:      2012-09-01 Sat
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+
+Instructions: All calculations should be performed in python. You should turn in the code used, and the answers you got.
+
+* Signup for an account at gitHub.
+Print your username here:
+
+Set yourself up to [[http://www.quora.com/GitHub/What-does-it-mean-to-watch-in-GitHub][watch]]
+https://github.com/jkitchin/dft-course and
+https://github.com/jkitchin/dft-book.
+
+* Read Chapter 1 in the text book.
+
+* Read Section 4 in dft-book.
+As part of this assignment, please turn in a pdf copy of dft-book that has been annotated by sticky notes using Adobe Acrobat Reader (you should be able to type Ctrl-6 to get a sticky note while the pdf is open, and then you can move it where you want and type text in it.). Please note any typos, places that are confusing, etc...
+
+* Data fitting.
+Fit a cubic polynomial to this set of data and estimate the lattice constant that minimizes the total energy. Prepare a figure that shows the data, your fit and your estimated minimum. Hints: =numpy.polyfit=, =numpy.polyder=, =numpy.roots=, =numpy.linspace=, =numpy.polyval= will all help you do this easily.
+
+#+tblname: cu-fcc-energies
+| lattice constant ($\AA$) | Total Energy (eV) |
+|--------------------------+-------------------|
+|                      3.5 |         -3.649238 |
+|                     3.55 |         -3.696204 |
+|                      3.6 |         -3.719946 |
+|                     3.65 |         -3.723951 |
+|                      3.7 |         -3.711284 |
+|                     3.75 |          -3.68426 |
+
+* Nonlinear algebra
+Solve this equation: $\sin(x^2) = 0.5$ for $x$. Prepare a plot of the function and show where your solution is. Hint: =scipy.optimize.fsolve=
+
+* Linear algebra
+Solve these equations using python and linear algebra:
+
+\begin{eqnarray}
+a0 - 3 a1 + 9 a2 - 27 a3 = -2 \\
+a0 - a1 + a2 - a3 = 2 \\
+a0 + a1 + a2 + a3 = 5 \\
+a0 + 2a1 + 4 a2 + 8 a3 = 1
+\end{eqnarray}
+
+Use linear algebra to verify your solution. Hint: see =numpy.linalg=, =numpy.dot=.
