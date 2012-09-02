@@ -48,27 +48,6 @@
 
 (ad-activate 'py-execute-buffer)
 
-;; (defun pydoc ()
-;;   "get the output of pydoc on the current word in a new buffer"
-;;   (interactive)
-;;   (setq this-word (thing-at-point 'word))
-;;   (shell-command (format "pydoc %s" this-word)))
-
-;; (defun run-my-python ()
-;;   "get python output my way
-;;   1. save-buffer
-;;   2. run buffer in python as a separate process
-;;   3. get all output, including errors, in a new buffer"
-;;   (interactive)
-;;   (basic-save-buffer)
-;;   (setq cmd (concat "python " (buffer-file-name)))
-;;   (shell-command cmd "*my-python*" "*my-python*")
-;;   (switch-to-buffer-other-window "*my-python*"))
-
-;; (add-hook 'python-mode-hook
-;;        (lambda ()
-;; 	(local-set-key "\C-c\C-c" 'run-my-python)
-;;  	))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode
@@ -111,6 +90,10 @@
 (setq org-babel-default-header-args
       (cons '(:results . "output")
 	    (assq-delete-all :results org-babel-default-header-args)))
+
+(setq org-babel-default-header-args
+      (cons '(:exports . "both")
+	    (assq-delete-all :exports org-babel-default-header-args)))
 
 (defun org-mode-reftex-setup ()
   (load-library "reftex")
