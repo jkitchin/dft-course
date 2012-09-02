@@ -2,7 +2,6 @@
 ;; create an environment variable called DFTCOURSE that points to where the course files are.
 (setq dft-course (getenv "DFTCOURSE"))
 
-
 ;; turn on font-lock mode
 (global-font-lock-mode t)
 
@@ -25,25 +24,51 @@
 (load-file (concat (getenv "DFTCOURSE") "/emacs/my-color-theme.el"))
 (my-color-theme)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; python
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path
              (concat (getenv "DFTCOURSE") "/emacs/python-mode"))
 
+(setq py-shell-name "C:/Python27/Scripts/ipython.bat")
 (autoload 'python-mode "python-mode" "Python Mode." t)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 (add-to-list 'interpreter-mode-alist '("python" . python-mode))
 
-(setq py-shell-name "C:/Python27/Scripts/ipython.bat")
-(setq py-python-command-args '(" --colors=LightBG --pylab"))
-;(setq py-python-command-args '("-pylab" "-colors" "LightBG"))
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default py-indent-offset 4)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(require 'python-mode)
+
+(defadvice py-execute-buffer
+  (after j/py-execute-buffer (arg))
+  "another way to modify execute buffer"
+  (progn
+    (switch-to-buffer-other-window "*C:/Python27/Scripts/Ipython.Bat*")))
+
+(ad-activate 'py-execute-buffer)
+
+;; (defun pydoc ()
+;;   "get the output of pydoc on the current word in a new buffer"
+;;   (interactive)
+;;   (setq this-word (thing-at-point 'word))
+;;   (shell-command (format "pydoc %s" this-word)))
+
+;; (defun run-my-python ()
+;;   "get python output my way
+;;   1. save-buffer
+;;   2. run buffer in python as a separate process
+;;   3. get all output, including errors, in a new buffer"
+;;   (interactive)
+;;   (basic-save-buffer)
+;;   (setq cmd (concat "python " (buffer-file-name)))
+;;   (shell-command cmd "*my-python*" "*my-python*")
+;;   (switch-to-buffer-other-window "*my-python*"))
+
+;; (add-hook 'python-mode-hook
+;;        (lambda ()
+;; 	(local-set-key "\C-c\C-c" 'run-my-python)
+;;  	))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode
