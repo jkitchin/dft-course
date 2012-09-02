@@ -1,0 +1,11 @@
+;; -*- mode: lisp-interaction; coding: utf-8; -*-
+;; This is a font configuration example for Chinese
+(set-default-font "Courier New:pixelsize=14")
+(set-fontset-font (frame-parameter nil 'font)
+		  'han (font-spec :family "SimSun" :size 20))
+(set-fontset-font (frame-parameter nil 'font)
+		  'symbol (font-spec :family "SimSun" :size 20))
+(set-fontset-font (frame-parameter nil 'font)
+		  'cjk-misc (font-spec :family "SimSun" :size 20))
+(set-fontset-font (frame-parameter nil 'font)
+		  'bopomofo (font-spec :family "SimSun" :size 20))
