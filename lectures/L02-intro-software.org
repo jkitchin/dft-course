@@ -42,6 +42,8 @@ print 4.0 / 6.0
 : 16
 : 0.666666666667
 
+
+
 Note some tricky issues with division. Python distinguishes between integer division and float division. In the first line we have integer division, where the remainder is discarded and an integer is returned. If any number is a float (indicated by a decimal or because it is converted to a float) then a float is returned.
 #+BEGIN_SRC python :results output
 print 2/3
