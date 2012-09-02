@@ -11,30 +11,10 @@ C:\Users\jkitchin\Desktop\dft-course\videos\clone-git-dft-course.swf
 
 file:..\videos\clone-git-dft-course.swf
 
-* Intro to emacs + python + org-mode
-
-#+begin_src python
-print 4 + 5
-
-for i in range(5):
-    print 'i = {0}'.format(i)
-#+end_src
-
-
-
-#+begin_src python
-import matplotlib.pyplot as plt
-plt.plot([1,2,5,9])
-plt.savefig('figure1.png')
-plt.show()
-#+end_src
-
-
-* Python in org-mode
-org-mode makes it possible to publish your python code and its output
-in a pretty form.
-
 * Python - install ase
+
+[[file:..\videos\install-ase.swf]]
+
 ** Make sure 32-bit Enthought python is installed
 (http://www.enthought.com/repo/.epd_academic_installers/epd-7.3-2-win-x86.msi)
 The 32-bit version is required for pygtk in the next step.
@@ -43,9 +23,20 @@ The 32-bit version is required for pygtk in the next step.
 ** install ase
    https://wiki.fysik.dtu.dk/ase-files/python-ase-3.6.1.2627.win32.msi
 
+#+begin_src python
+from ase import Atoms
+from ase.visualize import view
+view(Atoms('N'))
+#+end_src
+
+#+results:
+
+* Intro to emacs + python + org-mode
 
 
 
+
+[[file:..\videos\emacs-org-python.swf]]
 
 * install spyder
 http://code.google.com/p/spyderlib/downloads/detail?name=spyder-2.1.11_py27.exe&can=2&q=
