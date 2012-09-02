@@ -222,6 +222,13 @@ I use this to run commands asynchronously in the shell. org-mode runs shell link
 
 ))))
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flyspell-duplicate ((t (:foreground "red" :underline t :weight bold))))
+ '(org-link ((t (:inherit link :foreground "medium blue" :underline t)))))
 
 ; you can further customize by creating a new lisp file and
 ;uncommenting this line
