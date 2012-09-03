@@ -2,6 +2,7 @@
 ;; create an environment variable called DFTCOURSE that points to where the course files are.
 (setq dft-course (getenv "DFTCOURSE"))
 
+(global-visual-line-mode 1) ; how long lines are handled
 ;; turn on font-lock mode
 (global-font-lock-mode t)
 
@@ -88,7 +89,7 @@
 
 ; set default :results to output
 (setq org-babel-default-header-args
-      (cons '(:results . "output")
+      (cons '(:results . "replace output")
 	    (assq-delete-all :results org-babel-default-header-args)))
 
 (setq org-babel-default-header-args
