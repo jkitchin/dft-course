@@ -1,0 +1,55 @@
+* heading 1
+
+** subheading
+
+Type C-c C-c
+#+begin_src python
+print 4 + 5
+print 'test'
+for i in range(4):
+    print i
+#+end_src
+
+#+results:
+: 9
+: test
+: 0
+: 1
+: 2
+: 3
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-3, 3)
+y = np.exp(-x**2)
+
+plt.plot(x,y, 'gs')
+plt.xlabel('x-axis')
+plt.ylabel('y-axis')
+# Note it was a bad idea to use lecture3.1.png as a file name. It
+# confused latex because it did not know an extension of .1.png
+plt.savefig('lecture3-1.png')
+#+end_src
+
+#+results:
+
+#+caption: my beautiful first figure
+[[./lecture3-1.png]]
+
+* Notes on exporting.
+I have MikTeX 2.9 installed. To export the syntax highlighted code, you must enable the execution of external commands.
+
+In my git bash shell I ran:
+
+#+begin_src sh
+initexmf --edit-config-file=miktex/config/pdflatex.ini
+#+end_src
+
+which opened up notepad. I put this line in the file:
+#+begin_example
+EnableWrite18=t
+#+end_example
+
+Saved the file and closed it. Now, I can export this file by typing =C-c C-e d= and I get a pdf file.
