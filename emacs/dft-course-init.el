@@ -58,6 +58,9 @@
 (require 'org-special-blocks)
 (require 'org)
 
+; do not evaluate code on export
+(setq org-export-babel-evaluate nil)
+
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
