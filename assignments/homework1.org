@@ -25,8 +25,8 @@ https://github.com/jkitchin/dft-course and
 https://github.com/jkitchin/dft-book.
 
 * Read Chapter 1 in the text book.
-
-* Read Section 4 in dft-book.
+You do not need to write anything. Just do it.
+* Read Section 5 (Molecules) in dft-book.
 As part of this assignment, please turn in a pdf copy of dft-book that has been annotated by sticky notes using Adobe Acrobat Reader (you should be able to type Ctrl-6 to get a sticky note while the pdf is open, and then you can move it where you want and type text in it.). Please note any typos, places that are confusing, etc...
 
 * Data fitting.
