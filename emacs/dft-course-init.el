@@ -22,16 +22,16 @@
 
 (add-to-list 'load-path (concat dft-course "/emacs/color-theme-6.6.0"))
 (require 'color-theme)
-(load-file (concat (getenv "DFTCOURSE") "/emacs/my-color-theme.el"))
+(load-file (concat dft-course "/emacs/my-color-theme.el"))
 (my-color-theme)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; python
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path
-             (concat (getenv "DFTCOURSE") "/emacs/python-mode"))
+             (concat dft-course "/emacs/python-mode"))
 
-(setq py-shell-name "C:/Python27/Scripts/ipython.bat")
+;(setq py-shell-name "C:/Python27/Scripts/ipython.bat")
 (autoload 'python-mode "python-mode" "Python Mode." t)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 (add-to-list 'interpreter-mode-alist '("python" . python-mode))
@@ -53,7 +53,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+(add-to-list 'load-path
+             (concat dft-course "/emacs/org-mode/lisp"))
+(add-to-list 'load-path
+             (concat dft-course "/emacs/org-mode/contrib/lisp"))
 (require 'org-install)
 (require 'org-list)
 (require 'org-special-blocks)
@@ -107,7 +110,6 @@
   (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
   )
 (add-hook 'org-mode-hook 'org-mode-reftex-setup)
-
 
 (setq org-export-latex-default-packages-alist
       (quote
