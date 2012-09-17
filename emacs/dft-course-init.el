@@ -62,6 +62,8 @@
 (require 'org-special-blocks)
 (require 'org)
 
+(setq org-return-follows-link t)
+
 ; do not evaluate code on export
 (setq org-export-babel-evaluate nil)
 
@@ -235,6 +237,15 @@ I use this to run commands asynchronously in the shell. org-mode runs shell link
      (format "\\href{http://cms.mpi.univie.ac.at/wiki/index.php/%s}{%s}"  keyword keyword)
 
 ))))
+
+(org-add-link-type
+ "image"
+ (lambda (keyword)
+   ()) ; do nothing. maybe figure out how to open a png or pdf
+ (lambda (keyword link format)
+   (cond
+    ((eq format 'latex)
+     (format "\\includegraphics{%s.pdf}" keyword)))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
