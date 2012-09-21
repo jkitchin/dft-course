@@ -1,0 +1,179 @@
+#+TITLE:     Homework 2 - Due 9/18/2012
+#+AUTHOR:    John Kitchin
+#+EMAIL:     jkitchin@JKITCHIN-2012
+#+DATE:      2012-09-03 Mon
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS:
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+
+* Properties of nitromethane
+Use the =ase.data.molecules= database to answer these questions.
+** Molecular weight
+Use =ase= and python to compute the molecular weight of nitromethane (CH3NO2). Compare your answer to what you compute "by hand".
+
+*** solution                                                       :noexport:
+#+begin_src python
+from ase.data.molecules import molecule
+atoms = molecule('CH3NO2')
+print 'CH3NO2 molecular weight = {0} gm/mol'.format(atoms.get_masses().sum())
+#+end_src
+
+#+results:
+: CH3NO2 molecular weight = 61.04032 gm/mol
+
+** Center of mass
+Write a python function to compute the center of mass of nitromethane. Compare your answer to the output of =ase.Atoms.get_center_of_mass=.
+
+*** solution                                                       :noexport:
+#+begin_src python
+from ase.data.molecules import molecule
+import numpy as np
+atoms = molecule('CH3NO2')
+
+masses = atoms.get_masses()
+positions = atoms.positions
+
+COM = np.array([0.0, 0.0, 0.0])
+for m,p in zip(masses, positions):
+    COM += m*p
+
+COM /= masses.sum()
+
+print 'COM-1          = {0}'.format(COM)
+
+P = [0,0,0]
+M = 0
+for i,atom in enumerate(atoms):
+    P = P + masses[i]*atom.position
+    M = M + masses[i]
+print 'COM-2          = {0}'.format(P/M)
+
+
+
+print 'center of mass = {0} gm/mol'.format(atoms.get_center_of_mass())
+#+end_src
+
+#+results:
+: COM-1          = [ 0.00619103  0.07988693  0.        ]
+: COM-2          = [ 0.00619103  0.07988693  0.        ]
+: center of mass = [ 0.00619103  0.07988693  0.        ] gm/mol
+
+** Moments of inertia
+Compute the moments of inertia for nitromethane
+*** solution                                                       :noexport:
+#+begin_src python
+from ase.data.molecules import molecule
+atoms = molecule('CH3NO2')
+print 'CH3NO2 moments of inertia = {0}'.format(atoms.get_moments_of_inertia())
+#+end_src
+
+#+results:
+: CH3NO2 moments of inertia = [ 42.24164093  47.83785675  86.86751504]
+
+
+** bond lengths
+Compute the bond length between the C and each H atom.
+
+*** solution                                                       :noexport:
+#+begin_src python
+from ase.data.molecules import molecule
+atoms = molecule('CH3NO2')
+for i,atom in enumerate(atoms):
+    print i, atom
+
+print
+print atoms.get_distance(0,2)
+print atoms.get_distance(0,3)
+print atoms.get_distance(0,4)
+#+end_src
+
+#+results:
+#+begin_example
+0 Atom('C', [-0.11428199999999999, -1.314565, 0.0], index=0)
+1 Atom('N', [0.0, 0.16647999999999999, 0.0], index=1)
+2 Atom('H', [0.89956499999999995, -1.7152559999999999, 0.0], index=2)
+3 Atom('H', [-0.64092099999999996, -1.6072120000000001, 0.90495599999999998], index=3)
+4 Atom('H', [-0.64092099999999996, -1.6072120000000001, -0.90495599999999998], index=4)
+5 Atom('O', [0.066748000000000002, 0.72823199999999999, -1.103775], index=5)
+6 Atom('O', [0.066748000000000002, 0.72823199999999999, 1.103775], index=6)
+1.09015550124
+1.08716892196
+1.08716892196
+#+end_example
+
+
+
+** bond angle in the nitro group
+Compute the bond angle in degrees between O-N-O in the nitro group.
+
+*** solution                                                       :noexport:
+#+begin_src python
+from ase.data.molecules import molecule
+import numpy as np
+atoms = molecule('CH3NO2')
+for i,atom in enumerate(atoms):
+    print i, atom
+
+print
+print atoms.get_angle([5,1,6])*180./np.pi
+#+end_src
+
+#+results:
+: 0 Atom('C', [-0.11428199999999999, -1.314565, 0.0], index=0)
+: 1 Atom('N', [0.0, 0.16647999999999999, 0.0], index=1)
+: 2 Atom('H', [0.89956499999999995, -1.7152559999999999, 0.0], index=2)
+: 3 Atom('H', [-0.64092099999999996, -1.6072120000000001, 0.90495599999999998], index=3)
+: 4 Atom('H', [-0.64092099999999996, -1.6072120000000001, -0.90495599999999998], index=4)
+: 5 Atom('O', [0.066748000000000002, 0.72823199999999999, -1.103775], index=5)
+: 6 Atom('O', [0.066748000000000002, 0.72823199999999999, 1.103775], index=6)
+:
+: 125.728162698
+
+** Generate an xyz file
+Use =ase= to generage an xyz file of the coordinates of the nitromethane molecule. Include the output of your xyz file in your homework.
+
+*** solution                                                       :noexport:
+#+begin_src python
+from ase.data.molecules import molecule
+from ase.io import write
+atoms = molecule('CH3NO2')
+
+write('ch3no2.xyz', atoms)
+#+end_src
+
+#+results:
+
+#+begin_example
+#+include: ch3no2.xyz
+#+end_example
+
+** Create a graphic of nitromethane
+The molecule should be centered in a unit cell with dimensions 10\times 11.5 \times 12.1 \AA. The unit cell should be visible in the figure. Create a png file and embed it in the file you turn in.
+
+*** solution :noexport:
+#+begin_src python
+from ase.data.molecules import molecule
+from ase.io import write
+atoms = molecule('CH3NO2')
+atoms.set_cell([10, 11.5, 12.1])
+atoms.center()
+
+write('ch3no2.png', atoms, show_unit_cell=2)
+#+end_src
+
+#+results:
+
+
+[[./ch3no2.png]]
+
+* Read chapter 10 of dft-book
+Annotate the chapter using Acrobat Reader with sticky notes indicating any areas that are confusing, typos, or other types of errors. Click on all the links. Turn this in with your homework assignment.
