@@ -1,0 +1,137 @@
+* Syllabus
+
+Molecular Simulations (06-640) – Fall 2012
+Course website: http://github.com/jkitchin/dft-course
+
+You can clone your copy with:
+#+BEGIN_SRC sh
+git clone  http://github.com/jkitchin/dft-course
+#+END_SRC
+
+
+and update it with:
+#+BEGIN_SRC sh
+git pull
+#+END_SRC
+
+
+Instructor: Prof. John Kitchin, DH A207F, 412-268-7803, jkitchin@andrew.cmu.edu
+TA: None
+
+Office hours by appointment.
+
+Class times and location: Monday and Wednesday, 3-4:20pm DH4201
+
+Textbook: Density Functional Theory: A Practical Introduction, David Sholl and Jan Steckel.
+
+We will also use the notes at http://github.com/jkitchin/dft-book very extensively. These notes are continuously being developed, so you may need to update your copy from time to time.
+
+I will provide you with an account on our computing cluster for performing assignments in class. You will receive directions by email on using this account.
+
+Class philosophy:
+A wide range of molecular simulations are used widely today to calculate the properties of materials. This course will focus on the use of density functional theory, a nearly first-principles molecular simulation method, to calculate the properties of molecular and solid-state material systems. We will focus on the most basic property, the total energy of the system, and how that can be used to derive other properties. We will also introduce tools for facilitating computational simulations including the use of editors, version control software, data analysis and visualization. The goal is to provide you with basic tools that you can use to build your own simulation work environment, rather than relying on the fixed capabilities of canned software.
+
+Class objectives:
+By the end of this class you should be able to
+1. Understand the basic principles of density functional theory and
+   how it can be used to predict the properties of materials.
+2. Setup and run DFT calculations on molecular, bulk and surface systems
+3. Use numerical methods to analyze molecular simulation data
+4. Visualize 1D, 2D and 3D simulation data.
+5. Critically assess articles from the scientific literature that
+   utilize molecular simulation techniques.
+
+You will be required to do some programming in python. That language is similar to Matlab, and we will be learning by examples in class. You will also be required to use a Linux computing environment, and tools that include emacs and git. The basics of these tools will be covered in class, but you may have to learn more about them on your own to gain proficiency.
+
+You will need to bring your laptop to class. Your laptop should have an ssh client, and an X-server installed on it. If you run Linux or have a Macintosh, this probably automatically available. If you have a Windows PC, I recommend SSH Tectia (available at http://www.cmu.edu/computing/software/all/tectia/download.html), and the XMing server (http://www.straightrunning.com/XmingNotes/) You need the public domain release). This is what I use regularly.
+
+** Course assignments
+The course will have some homework assignments, some presentations, and some projects. Due dates will be given in class.
+
+*** Homeworks (15% of grade)
+
+*** Literature review project (15% of grade)
+You should identify a topic to perform a literature review on. You should discuss the topic with me before completing the project. You will prepare a presentation outlining the topic, the key results from the literature, and your critical review of the results.
+
+*** Mini-project 1 (20% of grade)
+You will be required to develop a reusable code module for some aspect of running molecular simulations. The code should be hosted at gitHUB, and part of your grade will be based on how well the module is documented and how well it works. You are responsible for choosing what this module will do, and you should discuss the project with me before starting it to ensure it has a proper scope. The project should take about 2 weeks to complete. The project could be an analysis module, a new equation of state, etc... A test example should be included to illustrate usage.
+
+*** Mini-project 2 (20% of grade)
+You will be assigned a class of oxides and a set of polymorph structures. You will compute equations of state for each polymorph and determine the relative stability of each structure. You will prepare a report summarizing your work, including convergence testing, and comparisons to available literature data (both computational and experimental). This project will take about 3-4 weeks. You will also prepare a presentation on your results and present it to the class.
+
+*** Final project (30% of grade)
+    You should identify a small computational project that utilizes the materials covered in class to solve a materials simulation problem. You will setup, run and analyze the calculations. You will prepare a written report summarizing the results, and present your results to the class. Your report should include a literature background discussion, and comparisons to literature where appropriate.
+
+
+* Class schedule
+Here is an approximate class schedule. The days with NO CLASS are not likely to change. These days may be augmented with video lectures, or devoted to project work. The topics on a particular day may change.
+
+** DONE <2012-08-27 Mon>
+Introduction - overview of DFT
+** DONE <2012-08-29 Wed>
+Setup of laptops and Linux home directories. Intro to VC, editors, python
+Creating molecules, bond lengths, moments of inertia, etc...
+** DONE <2012-09-03 Mon>
+NO CLASS - Labor day
+** DONE <2012-09-05 Wed>
+Calculating energies, forces, geometry optimizations
+** DONE <2012-09-10 Mon>
+NO CLASS
+** DONE <2012-09-12 Wed>
+NO CLASS
+** DONE <2012-09-17 Mon>
+Molecular properties, vibrational calculations, dipole moments, etc...
+** DONE <2012-09-19 Wed>
+Molecular reactions, barriers
+** <2012-09-24 Mon>
+Intro to bulk systems, unit cell optimization
+** <2012-09-26 Wed>
+NO CLASS
+** <2012-10-01 Mon>
+NO CLASS
+** <2012-10-03 Wed>
+NO CLASS
+** <2012-10-08 Mon>
+Literature review reports are due.
+What was the problem addressed. How was DFT used? What were the conclusions. Critical review of the approach. Could you repeat the work based on provided information?
+
+The topic should be something you are interested in learning more about.
+
+You should prepare a 2-5 page review of the paper. Please turn it in by sending me a pdf and the paper(s).
+
+** <2012-10-10 Wed>
+Bulk phase stability, atomistic thermodynamics
+** <2012-10-15 Mon>
+Bulk electronic structure, band structure, atom-projected dos
+*** Mini-project 1 is due
+** <2012-10-17 Wed>
+Magnetism
+** <2012-10-22 Mon>
+Introduction to surface construction, relaxation, work function
+** <2012-10-24 Wed>
+Adsorption, adsorbate vibrations
+** <2012-10-29 Mon>
+NO CLASS
+** <2012-10-31 Wed>
+NO CLASS
+** <2012-11-05 Mon>
+Surface reactions, barriers
+** <2012-11-07 Wed>
+NO CLASS
+** <2012-11-12 Mon>
+Coverage dependent adsorption properties, adsorbate phase behavior
+** <2012-11-14 Wed>
+*** Mini-project 2 is due
+** <2012-11-19 Mon>
+DFT+U and hybrid functionals
+** <2012-11-21 Wed>
+Cluster expansions in alloy phase behavior
+** <2012-11-26 Mon>
+Phonons ?
+** <2012-11-28 Wed>
+Advanced topics I?
+** <2012-12-03 Mon>
+Advanced topics II?
+** <2012-12-05 Wed>
+Advanced topics III?
+*** Final projects are due
