@@ -1,0 +1,27 @@
+#+TITLE:     hwk3.org Due 10/12/2012
+#+AUTHOR:    John Kitchin
+#+EMAIL:     jkitchin@HOME-OFFICE
+#+DATE:      2012-09-22 Sat
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+* Reaction energy of CO oxidation
+** Compute the reaction energy for CO + 1/2 O_{2} \rightarrow CO_{2}
+Use a cutoff energy of 250 eV. The molecules should all be relaxed to their lowest energy geometry.
+** Convergence test
+Repeat the previous problem at 350, 450, and 500 eV. Compare the convergence of the total energy of each species with the convergence of the reaction energy. Which converges faster?
+* Zero-point energy corrections
+Compute the vibrational modes of each molecule in the CO oxidation reaction. Do this at 350 eV cutoff energy only.
+** Compute the CO oxidation reaction energy with zero-point energy corrections.
+** Compare your computed energy to a value from the literature.
+Provide a reference for your literature value.
+* Plot the electron density of the CO2 molecule.
