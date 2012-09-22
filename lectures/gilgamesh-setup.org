@@ -1,0 +1,44 @@
+* Login
+To login to gilgamesh, you must use ssh and either be on campus, or use the VPN/Library resources with ssh. Remember to start your x-server (XMing) before you connect to gilgamesh.cheme.cmu.edu, and to enable X11-forwarding in your ssh client.
+
+Your login id is your andrew id. I will give you the password in class. The first thing you should do is change your password by running this command:
+
+#+BEGIN_SRC sh
+passwd
+#+END_SRC
+
+Next run this command:
+#+BEGIN_SRC sh
+emacs .bashrc
+#+END_SRC
+
+You want to make your .bashrc file look like this:
+#+BEGIN_SRC text
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific aliases and functions
+source /etc/profile.d/modules.sh
+module load molsim-06640-f12
+# end
+#+END_SRC
+
+After you modify the .bashrc file, save it and exit emacs. Then run this command:
+
+#+BEGIN_SRC sh
+source ~/.bashrc
+#+END_SRC
+
+That will update your session with the new commands. You only need to do this once. From now on, the .bashrc file will be loaded when you login.
+
+Next we need to clone the dft-course repository.
+
+#+BEGIN_SRC sh
+git clone git://github.com/jkitchin/dft-course.git
+#+END_SRC
+
+You should now be setup to run DFT calculations on gilgamesh.
