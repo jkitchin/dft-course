@@ -16,12 +16,17 @@
 
 * Reaction energy of CO oxidation
 ** Compute the reaction energy for CO + 1/2 O_{2} \rightarrow CO_{2}
-Use a cutoff energy of 250 eV. The molecules should all be relaxed to their lowest energy geometry.
+# <<rxn energy>>
+Use a cutoff energy of 250 eV. The molecules should all be relaxed to their lowest energy geometry (perform a geometry optimization). Demonstrate that all the forces on the molecule are less than 0.05 eV/\AA.
 ** Convergence test
-Repeat the previous problem at 350, 450, and 500 eV. Compare the convergence of the total energy of each species with the convergence of the reaction energy. Which converges faster?
+Repeat the previous problem at 350, 450, and 500 eV. Reoptimize the geometry at each ENCUT value. Compare (in a graph) the convergence of the total energy of each species with the convergence of the reaction energy. Which converges faster?
+
 * Zero-point energy corrections
-Compute the vibrational modes of each molecule in the CO oxidation reaction. Do this at 350 eV cutoff energy only.
+** Compute vibrational modes for CO, CO_{2} and O_{2}
+Compute the vibrational modes of each molecule in the CO oxidation reaction. Do this at 350 eV cutoff energy only. Prepare a table of the vibrational modes for molecule.
 ** Compute the CO oxidation reaction energy with zero-point energy corrections.
+Compare the reaction energy with and without the zero-point energy correction.
 ** Compare your computed energy to a value from the literature.
 Provide a reference for your literature value.
 * Plot the electron density of the CO2 molecule.
+Include the figure in your homework.
