@@ -62,7 +62,6 @@ You will be assigned a class of oxides and a set of polymorph structures. You wi
 *** Final project (30% of grade)
     You should identify a small computational project that utilizes the materials covered in class to solve a materials simulation problem. You will setup, run and analyze the calculations. You will prepare a written report summarizing the results, and present your results to the class. Your report should include a literature background discussion, and comparisons to literature where appropriate.
 
-
 * Class schedule
 Here is an approximate class schedule. The days with NO CLASS are not likely to change. These days may be augmented with video lectures, or devoted to project work. The topics on a particular day may change.
 
@@ -84,14 +83,16 @@ Molecular properties, vibrational calculations, dipole moments, etc...
 ** DONE <2012-09-19 Wed>
 Molecular reactions, barriers
 ** <2012-09-24 Mon>
-Intro to bulk systems, unit cell optimization
-** <2012-09-26 Wed>
+Intro to gilgamesh
+** DONE <2012-09-26 Wed>
 NO CLASS
-** <2012-10-01 Mon>
+** DONE <2012-10-01 Mon>
 NO CLASS
 ** <2012-10-03 Wed>
 NO CLASS
 ** <2012-10-08 Mon>
+Intro to bulk systems, unit cell optimization
+
 Literature review reports are due.
 What was the problem addressed. How was DFT used? What were the conclusions. Critical review of the approach. Could you repeat the work based on provided information?
 
@@ -103,13 +104,14 @@ You should prepare a 2-5 page review of the paper. Please turn it in by sending 
 Bulk phase stability, atomistic thermodynamics
 ** <2012-10-15 Mon>
 Bulk electronic structure, band structure, atom-projected dos
-*** Mini-project 1 is due
+
 ** <2012-10-17 Wed>
 Magnetism
 ** <2012-10-22 Mon>
 Introduction to surface construction, relaxation, work function
 ** <2012-10-24 Wed>
 Adsorption, adsorbate vibrations
+*** Mini-project 1 is due
 ** <2012-10-29 Mon>
 NO CLASS
 ** <2012-10-31 Wed>
