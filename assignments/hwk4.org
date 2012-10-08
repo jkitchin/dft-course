@@ -1,0 +1,38 @@
+#+TITLE:     Homework 4
+#+AUTHOR:
+#+EMAIL:     jkitchin@JKITCHIN-2012
+#+DATE:      2012-10-07 Sun
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+* Convergence study of tantalum
+** Planewave cutoff convergence
+Determine the planewave cutoff energy required to achieve a total energy convergence of 10 meV for bcc tantalum at its experimental lattice constant. Use a k-point grid of 10 \times 10 \times 10, and the PBE exchange correlation functional.
+** k-point grid convergence
+Determine the Monkhorst-Pack k-point grid required to achieve a total energy convergence of 50 meV for bcc tantalum at its experimental lattice constant.
+
+* Determine the DFT lattice constant of bcc tantalum
+Use the parameters you estimated in the previous problem. Construct an equation of state and determine the lattice constant and bulk modulus of tungsten. Compare your answers to literature values, and cite the source of your comparison.
+
+* Determine the DFT lattice constant of fcc tantalum
+Construct an equation of state to determine the lattice constant of fcc tantalum. Which structure is more stable, fcc or bcc?
+
+* graphite
+The crystal structure of graphite can be found at http://cst-www.nrl.navy.mil/lattice/struk/a9.html. Compute the geometry optimized total energy a sheet of graphite. Use a planewave cutoff of 350 eV and k-point grid of (10, 10, 10). Compare your results to experimental data. Cite your source.
+
+* Tantalum carbide
+Tantalum carbide is a hard material. Use DFT to compute the lattice constant of cubic tantalum carbide in the rock salt structure, and the bulk modulus. The crystal structure of tantalum carbide can be found at http://cst-www.nrl.navy.mil/lattice/struk/b1.html. Compare the bulk modulus of the TaC to that of bcc tantalum. Which is harder?
+
+The experimental lattice constant is 4.455 \AA, and the experimental bulk modulus is 3.45 Mbar. How do your results compare to this?
+
+* Estimate the formation energy of TaC.
+Compute the formation energy of TaC for the reaction Ta + C_{graphite} $\rightarrow$ TaC. Compare your anser to the value reported in http://pubs.acs.org/doi/pdf/10.1021/j100786a027. Discuss any reasons for discrepancy.
