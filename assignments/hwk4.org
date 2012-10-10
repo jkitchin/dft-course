@@ -1,4 +1,4 @@
-#+TITLE:     Homework 4
+#+TITLE:     Homework 4 - Due 10/24/2012
 #+AUTHOR:
 #+EMAIL:     jkitchin@JKITCHIN-2012
 #+DATE:      2012-10-07 Sun
@@ -21,16 +21,24 @@ Determine the planewave cutoff energy required to achieve a total energy converg
 Determine the Monkhorst-Pack k-point grid required to achieve a total energy convergence of 50 meV for bcc tantalum at its experimental lattice constant.
 
 * Determine the DFT lattice constant of bcc tantalum
-Use the parameters you estimated in the previous problem. Construct an equation of state and determine the lattice constant and bulk modulus of tungsten. Compare your answers to literature values, and cite the source of your comparison.
+Use the parameters you estimated in the previous problem. Construct an equation of state and determine the lattice constant and bulk modulus of tantalum. Compare your answers to literature values, and cite the source of your comparison.
 
 * Determine the DFT lattice constant of fcc tantalum
-Construct an equation of state to determine the lattice constant of fcc tantalum. Which structure is more stable, fcc or bcc?
+Construct an equation of state to determine the lattice constant of fcc tantalum. You can assume the same parameters that were good for the bcc structure are good for the fcc structure. Which structure is more stable, fcc or bcc?
 
 * graphite
-The crystal structure of graphite can be found at http://cst-www.nrl.navy.mil/lattice/struk/a9.html. Compute the geometry optimized total energy a sheet of graphite. Use a planewave cutoff of 350 eV and k-point grid of (10, 10, 10). Compare your results to experimental data. Cite your source.
+The crystal structure of graphite can be found at http://cst-www.nrl.navy.mil/lattice/struk/a9.html (or you can use the builtin mod:ase functions).
+** Planewave convergence
+Determine the planewave cutoff energy required to get convergence of 10 meV or better for graphite at its equilibrium lattice constant.
+
+** k-point convergence
+Determine the k-point grid required to get convergence of 50 meV or better for graphite at its equilibrium lattice constant.
+
+** Optimize the graphite geometry
+Compute the geometry optimized total energy for graphite. Use parameters determined from the convergence study to ensure the total energy is converged to better than 50 meV. Compare your results to experimental data. Cite your source.
 
 * Tantalum carbide
-Tantalum carbide is a hard material. Use DFT to compute the lattice constant of cubic tantalum carbide in the rock salt structure, and the bulk modulus. The crystal structure of tantalum carbide can be found at http://cst-www.nrl.navy.mil/lattice/struk/b1.html. Compare the bulk modulus of the TaC to that of bcc tantalum. Which is harder?
+Tantalum carbide is a hard material. Use DFT to compute the lattice constant of cubic tantalum carbide in the rock salt structure (NaCl or B1), and the bulk modulus. The crystal structure of tantalum carbide can be found at http://cst-www.nrl.navy.mil/lattice/struk/b1.html or in the mod:ase.lattice module. Compare the bulk modulus of the TaC to that of bcc tantalum. Which is harder?
 
 The experimental lattice constant is 4.455 \AA, and the experimental bulk modulus is 3.45 Mbar. How do your results compare to this?
 
