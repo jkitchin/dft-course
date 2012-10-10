@@ -88,9 +88,11 @@ Intro to gilgamesh
 NO CLASS
 ** DONE <2012-10-01 Mon>
 NO CLASS
-** <2012-10-03 Wed>
+** DONE <2012-10-03 Wed>
+   CLOSED: [2012-10-10 Wed 14:40]
 NO CLASS
-** <2012-10-08 Mon>
+** DONE <2012-10-08 Mon>
+   CLOSED: [2012-10-10 Wed 14:40]
 Intro to bulk systems, unit cell optimization
 
 Literature review reports are due.
@@ -102,6 +104,7 @@ You should prepare a 2-5 page review of the paper. Please turn it in by sending 
 
 ** <2012-10-10 Wed>
 Bulk phase stability, atomistic thermodynamics
+*** Reminder: Homework 3 due 10/12/2012
 ** <2012-10-15 Mon>
 Bulk electronic structure, band structure, atom-projected dos
 
@@ -112,6 +115,7 @@ Introduction to surface construction, relaxation, work function
 ** <2012-10-24 Wed>
 Adsorption, adsorbate vibrations
 *** Mini-project 1 is due
+*** Homework 4 is due
 ** <2012-10-29 Mon>
 NO CLASS
 ** <2012-10-31 Wed>
