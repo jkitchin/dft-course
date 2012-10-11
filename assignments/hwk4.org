@@ -17,15 +17,16 @@
 * Convergence study of tantalum
 ** Planewave cutoff convergence
 Determine the planewave cutoff energy required to achieve a total energy convergence of 10 meV for bcc tantalum at its experimental lattice constant. Use a k-point grid of 10 \times 10 \times 10, and the PBE exchange correlation functional.
+
 ** k-point grid convergence
-Determine the Monkhorst-Pack k-point grid required to achieve a total energy convergence of 50 meV for bcc tantalum at its experimental lattice constant.
+Determine the Monkhorst-Pack k-point grid required to achieve a total energy convergence of 50 meV for bcc tantalum at its experimental lattice constant. Use a planewave cutoff of 350 eV for this study.
 
 * Convergence study of graphite
 ** Planewave convergence
-Determine the planewave cutoff energy required to get convergence of 10 meV or better for graphite at its equilibrium lattice constant.
+Determine the planewave cutoff energy required to get convergence of 10 meV or better for graphite at its equilibrium lattice constant. Use a k-point grid of (6,6,6) for this study.
 
 ** k-point convergence
-Determine the k-point grid required to get convergence of 50 meV or better for graphite at its equilibrium lattice constant.
+Determine the k-point grid required to get convergence of 50 meV or better for graphite at its equilibrium lattice constant. Use a planewave cutoff of 350 eV for this study.
 
 * Determine the DFT lattice constant of bcc tantalum
 Use the parameters you estimated in the previous problem. Construct an equation of state and determine the lattice constant and bulk modulus of tantalum. Compare your answers to literature values, and cite the source of your comparison.
@@ -44,4 +45,4 @@ Tantalum carbide is a hard material. Use DFT to compute the lattice constant of 
 The experimental lattice constant is 4.455 \AA, and the experimental bulk modulus is 3.45 Mbar. How do your results compare to this?
 
 * Estimate the formation energy of TaC.
-Compute the formation energy of TaC for the reaction Ta + C_{graphite} $\rightarrow$ TaC. Compare your anser to the value reported in http://pubs.acs.org/doi/pdf/10.1021/j100786a027. Discuss any reasons for discrepancy.
+Compute the formation energy of TaC for the reaction Ta + C_{graphite} $\rightarrow$ TaC. Compare your anser to the value reported in http://pubs.acs.org/doi/pdf/10.1021/j100786a027. Discuss any reasons for discrepancy. Remember that you must use the same ENCUT for all the calculations in this problem, and you must use the largest ENCUT for all calculations that ensures the accuracy level you want.
