@@ -162,4 +162,4 @@ Advanced topics II?
 ** <2012-12-05 Wed>
 Advanced topics III?
 *** Final projects are due
-You will choose your final project.
+You will choose your final project. The scope if up to you, and you should outline a proposal of what you want to do, how many calculations you think need to be done, and what you will learn from it. Discuss the proposal with me and then, get to work!
