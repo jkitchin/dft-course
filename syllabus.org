@@ -147,6 +147,52 @@ git clone git@github.com:KitchinHUB/oxide-polymorphs.git
 
 This will ask you for your gitHUB password. If it did not, you did the wrong thing. You will have to make sure that you have a gilgamesh ssh key setup for github. Follow the directions at https://help.github.com/articles/generating-ssh-keys.
 
+If you see this:
+#+begin_example
+[06640@gilgamesh ~]$ git clone git@github.com:KitchinHUB/oxide-polymorphs.git
+Cloning into oxide-polymorphs...
+Permission denied (publickey).
+fatal: The remote end hung up unexpectedly
+#+end_example
+
+then you have not setup your ssh keys correctly. Follow the directions above.
+Here is what the commands I ran and their output to setup my keys looked like:
+#+begin_example
+[06640@gilgamesh dft-course]$ cd
+[06640@gilgamesh ~]$ git clone git@github.com:KitchinHUB/oxide-polymorphs.git
+Cloning into oxide-polymorphs...
+Permission denied (publickey).
+fatal: The remote end hung up unexpectedly
+[06640@gilgamesh ~]$ cd .ssh
+[06640@gilgamesh .ssh]$ ls
+known_hosts
+[06640@gilgamesh .ssh]$ ssh-keygen -t rsa -C "jkitchin@andrew.cmu.edu"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/06640/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/06640/.ssh/id_rsa.
+Your public key has been saved in /home/06640/.ssh/id_rsa.pub.
+The key fingerprint is:
+9f:49:e4:62:89:54:8d:a3:c5:e6:47:18:72:a4:ce:68 jkitchin@andrew.cmu.edu
+[06640@gilgamesh .ssh]$ cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAtuCFWLTeXjRpRfxZCBntg4zYV1025bHV3FlYRF3DUvidoxLL9oeGLMm+ZconMRB48o4Cn+BtuwKsFkKWhr2dXXc64e5MUaks+qhN6TUkovDMjvw== jkitchin@andrew.cmu.edu
+[06640@gilgamesh .ssh]$ cd
+[06640@gilgamesh ~]$ git clone git@github.com:KitchinHUB/oxide-polymorphs.git
+Cloning into oxide-polymorphs...
+Enter passphrase for key '/home/06640/.ssh/id_rsa':
+remote: Counting objects: 7821, done.
+remote: Compressing objects: 100% (4470/4470), done.
+remote: Total 7821 (delta 3602), reused 7460 (delta 3258)
+Receiving objects: 100% (7821/7821), 151.80 MiB | 5.82 MiB/s, done.
+Resolving deltas: 100% (3602/3602), done.
+[06640@gilgamesh ~]$
+
+#+end_example
+Then you need to go to https://github.com/settings/ssh to upload your key.
+
+It will take a while (several minutes) to download everything.
+
 In the newly formed oxide-polymorphs you will find instructions in 06640-f12-oxide-polymorphs.org. In that file you will find instructions on what to do, and how to do it.
 
 ** <2012-11-19 Mon>
