@@ -102,7 +102,7 @@ The topic should be something you are interested in learning more about.
 
 You should prepare a 2-5 page review of the paper. Please turn it in by sending me a pdf and the paper(s).
 
-** <2012-10-10 Wed>
+** DONE <2012-10-10 Wed>
 Bulk phase stability, atomistic thermodynamics
 *** Reminder: Homework 3 due 10/12/2012
 ** <2012-10-15 Mon>
@@ -114,20 +114,41 @@ Magnetism
 Introduction to surface construction, relaxation, work function
 ** <2012-10-24 Wed>
 Adsorption, adsorbate vibrations
-*** Mini-project 1 is due
+
 *** Homework 4 is due
 ** <2012-10-29 Mon>
 NO CLASS
 ** <2012-10-31 Wed>
-NO CLASS
+to be determined
+*** Mini-project 1 is due
+For mini-project 1 you should develop a small piece of python code that performs an "analysis" of a calculation results.  Some examples include:
+1. Implement an uncertainty analysis on the estimated parameters in an equation of state, e.g. what is the 95% confidence interval on the minimum volume and bulk modulus. You may use any EOS and approach you want. You may use data from dft-book or you can calculate or use your own.
+2. Implement a linear programming approach to phase stability. You may use the formation energies for Cu-Pd alloys from dft-book, or other data, e.g. from http://materialsproject.org. Prepare a figure that shows what phases are present as a function of composition from pure Cu to pure Pd.
+3. Implement a 3-d graphic, e.g. figure out how to make the figure at http://www.halogenbonding.eu/img/fig1.jpg.
+4. Figure out how to plot the WAVECAR file. It is a binary file, and there is a fortran code at http://www.andrew.cmu.edu/user/feenstra/wavetrans/ which may be helpful. You could even use the fortran executable if you wanted. They main result is to get a picture of a wavefunction.
+5. Figure out how to plot the electron density as a "fog" rather than with isosurfaces. The figure should have the atomic geometry in it so you can see the electron cloud around the atom positions. There is an example at http://docs.enthought.com/mayavi/mayavi/auto/example_chemistry.html of what the figure should look like.
+6. Other similar projects are possible. Please discuss them with me in advance. I am especially interested in 3D graphic oriented projects, projects that explore parallel python for running lots of jobs, automating analysis, etc...
+
+You must put your project on your gitHUB account, and send me the link to it. There should be a README.org file that explains the project, what it is, how to use your code, and any known limitations. There should be an example org-file that contains a description of a specific problem you are solving with your code, an example script that solves the problem, and the output of the script, including any figures. Your code should also work for me when I clone your git repository. Part of the grade for this assignment will be based on how easy it is to figure out what you are doing, how the code is organized, commented, etc...
+
 ** <2012-11-05 Mon>
 Surface reactions, barriers
 ** <2012-11-07 Wed>
 NO CLASS
 ** <2012-11-12 Mon>
 Coverage dependent adsorption properties, adsorbate phase behavior
-** <2012-11-14 Wed>
+** <2012-11-21 Wed>
 *** Mini-project 2 is due
+For mini-project 2 you will contribute to a collaborative research project to compute equations of state for oxide polymorphs. You will compute the EOS for four oxide polymorphs using two different exchange correlation functionals. You must run this in your gilgamesh account home directory:
+
+#+BEGIN_SRC sh
+git clone git@github.com:KitchinHUB/oxide-polymorphs.git
+#+END_SRC
+
+This will ask you for your gitHUB password. If it did not, you did the wrong thing. You will have to make sure that you have a gilgamesh ssh key setup for github. Follow the directions at https://help.github.com/articles/generating-ssh-keys.
+
+In the newly formed oxide-polymorphs you will find instructions in 06640-f12-oxide-polymorphs.org. In that file you will find instructions on what to do, and how to do it.
+
 ** <2012-11-19 Mon>
 DFT+U and hybrid functionals
 ** <2012-11-21 Wed>
@@ -141,3 +162,4 @@ Advanced topics II?
 ** <2012-12-05 Wed>
 Advanced topics III?
 *** Final projects are due
+You will choose your final project.
