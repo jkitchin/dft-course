@@ -45,7 +45,7 @@
   (after j/py-execute-buffer (arg))
   "another way to modify execute buffer"
   (progn
-    (switch-to-buffer-other-window "*C:/Python27/Scripts/Ipython.Bat*")))
+    (switch-to-buffer-other-window "*Python*")))
 
 (ad-activate 'py-execute-buffer)
 
