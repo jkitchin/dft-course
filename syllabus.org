@@ -105,10 +105,12 @@ You should prepare a 2-5 page review of the paper. Please turn it in by sending 
 ** DONE <2012-10-10 Wed>
 Bulk phase stability, atomistic thermodynamics
 *** Reminder: Homework 3 due 10/12/2012
-** <2012-10-15 Mon>
+** DONE <2012-10-15 Mon>
+   CLOSED: [2012-10-22 Mon 14:19]
 Bulk electronic structure, band structure, atom-projected dos
 
-** <2012-10-17 Wed>
+** DONE <2012-10-17 Wed>
+   CLOSED: [2012-10-22 Mon 14:19]
 Magnetism
 ** <2012-10-22 Mon>
 Introduction to surface construction, relaxation, work function
