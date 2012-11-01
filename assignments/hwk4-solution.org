@@ -1,0 +1,650 @@
+#+TITLE:     Homework 4 - Due 10/24/2012
+#+AUTHOR:
+#+EMAIL:     jkitchin@JKITCHIN-2012
+#+DATE:      2012-10-07 Sun
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+* Convergence study of tantalum
+** Planewave cutoff convergence
+Determine the planewave cutoff energy required to achieve a total energy convergence of 10 meV for bcc tantalum at its experimental lattice constant. Use a k-point grid of 10 \times 10 \times 10, and the PBE exchange correlation functional.
+
+*** Solution
+#+BEGIN_SRC python
+from ase.lattice.cubic import BodyCenteredCubic
+from jasp import *
+
+atoms = BodyCenteredCubic('Ta')
+
+ENCUTS = [250, 300, 350, 400, 450, 500]
+TE = []
+
+ready = True
+for encut in ENCUTS:
+    with jasp('hwk4/Ta-encut-{0}'.format(encut),
+              xc='PBE',
+              kpts=(10,10,10),
+              encut=encut,
+              atoms=atoms) as calc:
+        try:
+            TE.append(atoms.get_potential_energy())
+        except (VaspSubmitted, VaspQueued):
+            ready = False
+
+if not ready:
+    import sys; sys.exit()
+
+import matplotlib.pyplot as plt
+
+# consider the change in energy from lowest energy state
+TE = np.array(TE)
+TE -= TE.min()
+
+plt.plot(ENCUTS, TE)
+plt.axhline(y=TE[-1] + 0.01)
+plt.axhline(y=TE[-1] - 0.01)
+plt.ylim([-0.015, 0.015])
+plt.xlabel('ENCUT (eV)')
+plt.ylabel('Total Energy (eV)')
+plt.savefig('hwk4/Ta-bcc-encut-convergence.png')
+#+END_SRC
+
+#+RESULTS:
+: None
+
+#+caption: ENCUT convergence of the total energy for  bcc Ta.
+[[./hwk4/Ta-bcc-encut-convergence.png]]
+
+This shows that even an ENCUT of 250 eV is converged to less than 10 meV.
+
+
+** k-point grid convergence
+Determine the Monkhorst-Pack k-point grid required to achieve a total energy convergence of 50 meV for bcc tantalum at its experimental lattice constant. Use a planewave cutoff of 350 eV for this study.
+
+*** Solution
+#+BEGIN_SRC python
+from ase.lattice.cubic import BodyCenteredCubic
+from ase.visualize import view
+from jasp import *
+
+atoms = BodyCenteredCubic('Ta')
+
+KPTS = [2, 3, 4, 5, 6, 8, 10]
+
+TE = []
+
+ready = True
+for k in KPTS:
+    with jasp('hwk4/Ta-kpts-{0}'.format(k),
+              xc='PBE',
+              kpts=(k, k, k),
+              encut=300,
+              atoms=atoms) as calc:
+        try:
+            TE.append(atoms.get_potential_energy())
+        except (VaspSubmitted, VaspQueued):
+            ready = False
+
+if not ready:
+    import sys; sys.exit()
+
+import matplotlib.pyplot as plt
+
+# consider the change in energy from lowest energy state
+TE = np.array(TE)
+TE -= TE.min()
+
+plt.plot(KPTS, TE)
+plt.axhline(y=TE[-1] + 0.01)
+plt.axhline(y=TE[-1] - 0.01)
+plt.xlabel('KPTS')
+plt.ylabel('Total Energy (eV)')
+plt.savefig('hwk4/Ta-bcc-kpt-convergence.png')
+#+END_SRC
+
+#+RESULTS:
+: None
+
+#+caption: k-point convergence of the total energy for bcc Ta.
+[[./hwk4/Ta-bcc-kpt-convergence.png]]
+
+It is apparent that the total energy is not a monotonic function of k-points; there are oscillations. Here a k-point mesh with density greater than 5 \times\ 5 \times 5 gets a convergence of about 0.05 eV, and (8,8,8) gets a convergence of 0.01 eV.
+
+
+* Convergence study of graphite
+** Planewave convergence
+Determine the planewave cutoff energy required to get convergence of 10 meV or better for graphite at its equilibrium lattice constant. Use a k-point grid of (6,6,6) for this study.
+
+#+BEGIN_SRC python :results output
+from ase.lattice.hexagonal import Graphite
+from jasp import *
+
+atoms = Graphite('C', latticeconstant={'a':2.4612, 'c':6.7079})
+
+ENCUTS = [250, 300, 350, 400, 450, 500, 550, 600, 700, 800, 1000]
+TE = []
+
+ready = True
+for encut in ENCUTS:
+    with jasp('hwk4/graphite-encut-{0}'.format(encut),
+              xc='PBE',
+              encut=encut,
+              kpts=(6,6,6),
+              atoms=atoms) as calc:
+        try:
+            TE.append(atoms.get_potential_energy())
+        except (VaspSubmitted, VaspQueued):
+            ready = False
+
+if not ready:
+    import sys; sys.exit()
+
+import matplotlib.pyplot as plt
+plt.plot(ENCUTS, TE)
+# add +- 10 meV to last point
+plt.axhline(y=TE[-1] + 0.05)
+plt.axhline(y=TE[-1] - 0.05)
+
+plt.xlabel('ENCUT (eV)')
+plt.ylabel('Total energy (eV)')
+plt.savefig('hwk4/graphite-encut.png')
+#+END_SRC
+
+#+RESULTS:
+
+#+caption: ENCUT convergence for graphite.
+[[./hwk4/graphite-encut.png]]
+
+It looks like a planewave cutoff greater than 450 will be converged to approximately 10 meV.
+
+** k-point convergence
+Determine the k-point grid required to get convergence of 50 meV or better for graphite at its equilibrium lattice constant. Use a planewave cutoff of 350 eV for this study.
+
+#+BEGIN_SRC python :results output
+from ase.lattice.hexagonal import Graphite
+from jasp import *
+
+qatoms = Graphite('C', latticeconstant={'a':2.4612, 'c':6.7079})
+
+KPTS = [2, 3, 4, 5, 6, 7, 8, 9 ]
+TE = []
+
+ready = True
+for k in KPTS:
+    with jasp('hwk4/graphite-kpts-{0}'.format(k),
+              encut=350,
+              kpts=(k,k,k),
+              atoms=atoms) as calc:
+        try:
+            TE.append(atoms.get_potential_energy())
+        except (VaspSubmitted, VaspQueued):
+            ready = False
+
+if not ready:
+    import sys; sys.exit()
+
+import matplotlib.pyplot as plt
+plt.plot(KPTS, TE)
+plt.axhline(y=TE[-1] + 0.01)
+plt.axhline(y=TE[-1] - 0.01)
+plt.xlabel('KPTS')
+plt.ylabel('Total energy (eV)')
+plt.savefig('hwk4/graphite-kpt.png')
+#+END_SRC
+
+#+RESULTS:
+
+#+caption: KPT convergence of graphite.
+[[./hwk4/graphite-kpt.png]]
+
+
+* Determine the DFT lattice constant of bcc tantalum
+Use the parameters you estimated in the previous problem. Construct an equation of state and determine the lattice constant and bulk modulus of tantalum. Compare your answers to literature values, and cite the source of your comparison.
+
+** Solution
+#+BEGIN_SRC python :results output
+from ase.lattice.cubic import BodyCenteredCubic
+from jasp import *
+
+atoms = BodyCenteredCubic('Ta')
+v0 = atoms.get_volume()
+
+factors = [-0.1, -0.05, 0.0, 0.05, 0.1]
+
+V, E = [], []
+ready = True
+
+for f in factors:
+    atoms.set_volume(v0 * (1 + f))
+
+    with jasp('hwk4/Ta-bcc-eos-{0}'.format(f),
+              encut=400,
+              kpts=(8,8,8),
+              xc='PBE',
+              atoms=atoms) as calc:
+        try:
+            E.append(atoms.get_potential_energy())
+            V.append(atoms.get_volume())
+        except (VaspSubmitted, VaspQueued):
+            ready = False
+
+if not ready:
+    import sys; sys.exit()
+
+from ase.utils.eos import EquationOfState
+eos = EquationOfState(V, E)
+pars = eos.fit()
+print '''
+v0 = {0: 1.3f} ang^3
+e0 = {1: 1.3f} eV
+B  = {2: 1.1f} eV/ang^3'''.format(*pars)
+eos.plot('hwk4/Ta-bcc-eos.png')
+#+END_SRC
+
+#+RESULTS:
+:
+: v0 =  36.221 ang^3
+: e0 = -23.731 eV
+: B  =  1.3 eV/ang^3
+
+
+
+#+caption: Equation of state for BCC Ta.
+[[./hwk4/Ta-bcc-eos.png]]
+
+The lattice constant of bcc Ta in Kittel is 3.30 angstroms. We estimated a volume of the unit cell of 36.381 angstroms^3. The unit cell is actually a primitive one, so we can estimate the lattice constant simply from the cube root of the volume, i.e. $V = a^3$. src_python[:results output]{print 36.221**(1./3.)} =3.3086701911
+=
+=  and the corresponding error is src_python[:results output]{print (36.221**(1./3.) - 3.30)/3.30 * 100} =0.262733063719
+=
+We only slightly overestimate the lattice constant by 0.3%.
+
+In Kittel, the bulk modulus is 2.0e12 dyn/cm^{2} or 2e11 Pa which is 200 GPa. That is an error of  src_python[:results output]{print (207 - 200)/200.0* 100} =3.5
+= %. We slightly overestimate the bulk modulus.
+
+
+
+* Determine the DFT lattice constant of fcc tantalum
+Construct an equation of state to determine the lattice constant of fcc tantalum. You can assume the same parameters that were good for the bcc structure are good for the fcc structure. Which structure is more stable, fcc or bcc?
+
+** solution
+#+BEGIN_SRC python :results output
+
+from ase.lattice.cubic import FaceCenteredCubic
+from jasp import *
+
+V_bcc = 36.381/2.0
+
+a_fcc = (4*V_bcc)**(1./3.)
+
+atoms = FaceCenteredCubic('Ta', latticeconstant=a_fcc)
+v0 = atoms.get_volume()
+
+factors = [-0.1, -0.05, 0.0, 0.05, 0.1]
+
+V, E = [], []
+ready = True
+
+for f in factors:
+    atoms.set_volume(v0 * (1 + f))
+
+    with jasp('hwk4/Ta-fcc-eos-{0}'.format(f),
+              encut=400,
+              kpts=(8,8,8),
+              xc='PBE',
+              atoms=atoms) as calc:
+        try:
+            E.append(atoms.get_potential_energy())
+            V.append(atoms.get_volume())
+        except (VaspSubmitted, VaspQueued):
+            ready = False
+
+if not ready:
+    import sys; sys.exit()
+
+from ase.utils.eos import EquationOfState
+eos = EquationOfState(V, E)
+pars = eos.fit()
+print '''
+v0 = {0: 1.3f} ang^3
+e0 = {1: 1.3f} eV
+B  = {2: 1.1f} eV/ang^3'''.format(*pars)
+eos.plot('hwk4/Ta-fcc-eos.png')
+#+END_SRC
+
+#+RESULTS:
+:
+: v0 =  74.636 ang^3
+: e0 = -46.467 eV
+: B  =  1.3 eV/ang^3
+
+
+
+#+caption: Equation of state for FCC Ta.
+[[./hwk4/Ta-fcc-eos.png]]
+
+The total energy of the fcc cell is -46.467 eV, whereas the total energy of the bcc cell is -23.731 eV. However, the fcc cell has four atoms in it, while the bcc cell has 2 atoms in it. We have to compare the stability on a per atom (or per mole) basis.
+
+#+BEGIN_SRC python :results output
+E_bcc = -23.731
+E_fcc = -46.457
+
+print 'E_fcc = {0:1.3f} eV/atom'.format(E_fcc/4.0)
+print 'E_bcc = {0:1.3f} eV/atom'.format(E_bcc/2.0)
+#+END_SRC
+
+#+RESULTS:
+: E_fcc = -11.614 eV/atom
+: E_bcc = -11.866 eV/atom
+
+You can see from this analysis that the bcc structure is about 0.25 eV/atom more stable than the fcc structure. Experimentally, Ta is observed in the bcc structure.
+
+
+* Determine graphite lattice parameters
+The crystal structure of graphite can be found at http://cst-www.nrl.navy.mil/lattice/struk/a9.html (or you can use the builtin mod:ase functions).
+
+Compute the geometry optimized total energy for graphite. Use parameters determined from the convergence study to ensure the total energy is converged to better than 50 meV. Compare your results to experimental data. Cite your source.
+
+** Solution
+#+BEGIN_SRC python :results output
+from ase.lattice.hexagonal import Graphite
+from ase.visualize import view
+from ase.io import write
+from jasp import *
+from ase.utils.eos import EquationOfState
+
+atoms = Graphite('C', latticeconstant={'a':2.4612, 'c':6.7079})
+v0 = atoms.get_volume()
+
+#view(atoms)
+
+factors = [-0.1, -0.05, 0.0, 0.05, 0.1]
+
+V,E = [], []
+
+ready = True
+for f in factors:
+    atoms.set_volume(v0 * (1 + f))
+
+    with jasp('hwk4/graphite-eos-{0}'.format(f),
+              encut=400,
+              kpts=(6,6,6),
+              ibrion=1,
+              isif=2,
+              nsw=50,
+              atoms=atoms) as calc:
+        try:
+            E.append(atoms.get_potential_energy())
+            V.append(atoms.get_volume())
+        except (VaspSubmitted, VaspQueued):
+            ready = False
+
+if not ready:
+    import sys; sys.exit()
+
+eos = EquationOfState(V,E)
+pars = eos.fit()
+print '''
+v0 = {0: 1.3f} ang^3
+e0 = {1: 1.3f} eV
+B  = {2: 1.1f} eV/ang^3'''.format(*pars)
+
+eos.plot('hwk4/graphite-eos.png')
+
+#+END_SRC
+
+#+RESULTS:
+=
+v0 =  35.576 ang^3
+e0 = -36.879 eV
+B  =  1.7 eV/ang^3
+
+
+#+caption:
+[[./hwk4/graphite-eos.png]]
+
+Now we
+#+BEGIN_SRC python :results output
+from ase.lattice.hexagonal import Graphite
+from ase.visualize import view
+from ase.io import write
+from jasp import *
+from ase.utils.eos import EquationOfState
+
+atoms = Graphite('C', latticeconstant={'a':2.4612, 'c':6.7079})
+v0 = atoms.get_volume()
+
+factors = [-0.1, -0.05, 0.0, 0.05, 0.1, 0.15, 0.2, 0.25]
+
+V,E = [], []
+
+ready = True
+for f in factors:
+    atoms.set_volume(v0 * (1 + f))
+
+    with jasp('hwk4/graphite-eos-step2-{0}'.format(f),
+              xc='PBE',
+              encut=400,
+              kpts=(6,6,6),
+              ibrion=1,
+              isif=4,
+              nsw=50,
+              atoms=atoms) as calc:
+        try:
+            E.append(atoms.get_potential_energy())
+            V.append(atoms.get_volume())
+        except (VaspSubmitted, VaspQueued):
+            ready = False
+
+if not ready:
+    import sys; sys.exit()
+
+eos = EquationOfState(V,E)
+pars = eos.fit()
+print '''
+v0 = {0: 1.3f} ang^3
+e0 = {1: 1.3f} eV
+B  = {2: 1.1f} eV/ang^3'''.format(*pars)
+
+eos.plot('hwk4/graphite-eos-step2.png')
+
+#+END_SRC
+
+#+RESULTS:
+:
+: v0 =  40.088-2.675j ang^3
+: e0 = -36.916+0.006j eV
+: B  = -0.0+0.1j eV/ang^3
+
+[[./hwk4/graphite-eos-step2.png]]
+
+Note that the volume here is quite a bit larger than we estimated from step 1. Graphite is somewhat pathological. The total energy changes non-isotropically with changes in volume, and as the layers separate, they simply stop interacting with each other. Hence, there is not a well-defined equation of state, as seen above. This is a flaw in the PBE functional that does not capture the van der waal forces between the graphite sheets very well. We have to decide what energy to use. One choice is -36.92 eV, which is approximately where the energy levels out. Another choice is the energy at the experimental volume.
+
+* Tantalum carbide lattice parameters
+Tantalum carbide is a hard material. Use DFT to compute the lattice constant of cubic tantalum carbide in the rock salt structure (NaCl or B1), and the bulk modulus. The crystal structure of tantalum carbide can be found at http://cst-www.nrl.navy.mil/lattice/struk/b1.html or in the mod:ase.lattice module. Compare the bulk modulus of the TaC to that of bcc tantalum. Which is harder?
+
+The experimental lattice constant is 4.455 \AA, and the experimental bulk modulus is 3.45 Mbar. How do your results compare to this?
+
+#+BEGIN_SRC python :results output
+from jasp import *
+from ase.lattice.compounds import B1
+from ase.visualize import view
+
+atoms = B1(['Ta','C'], latticeconstant=4.455)
+v0 = atoms.get_volume()
+
+factors = [-0.1, -0.05, 0.0, 0.05, 0.1]
+
+V,E = [], []
+
+ready = True
+for i,f in enumerate(factors):
+    atoms.set_volume(v0 * (1 + f))
+
+    with jasp('hwk4/TaC-eos-{0}'.format(f),
+              encut=400,
+              kpts=(6,6,6),
+              ibrion=1,
+              isif=2,
+              nsw=50,
+              atoms=atoms) as calc:
+        try:
+            E.append(atoms.get_potential_energy())
+            V.append(atoms.get_volume())
+        except (VaspSubmitted, VaspQueued):
+            ready = False
+
+if not ready:
+    import sys; sys.exit()
+
+from ase.utils.eos import EquationOfState
+eos = EquationOfState(V,E)
+pars = eos.fit()
+print '''
+v0 = {0: 1.3f} ang^3
+e0 = {1: 1.3f} eV
+B  = {2: 1.1f} eV/ang^3'''.format(*pars)
+
+eos.plot('hwk4/TaC-eos.png')
+
+print 'The lattice constant is {0:1.3f} angstroms'.format(v0**(1./3.))
+#+END_SRC
+
+#+RESULTS:
+:
+: v0 =  89.562 ang^3
+: e0 = -89.205 eV
+: B  =  2.1 eV/ang^3
+: The lattice constant is 4.455 angstroms
+
+* Estimate the formation energy of TaC.
+Compute the formation energy of TaC for the reaction Ta + C_{graphite} $\rightarrow$ TaC. Compare your anser to the value reported in http://pubs.acs.org/doi/pdf/10.1021/j100786a027. Discuss any reasons for discrepancy. Remember that you must use the same ENCUT for all the calculations in this problem, and you must use the largest ENCUT for all calculations that ensures the accuracy level you want.
+
+** Solution
+We know Ta is converged to better than 10 meV for any ENCUT greater than 250 eV. Graphite requires an ENCUT of at least 450 eV to be converged to that level. If all of the calculations are converged to at least 10 meV in Total Energy, then the differences of these energies is also converged to at least 10 meV. Hence, we choose 450 eV as the ENCUT for all calculations.
+
+The unit cells are all different, so we cannot use the same k-point grid in all the calculations. For Ta, we choose (8,8,8) based on our convergence study. For graphite, we also choose (8,8,8) based on the convergence study. We did not perform a convergence study on TaC.
+
+#+BEGIN_SRC python :results output
+from jasp import *
+from ase.lattice.compounds import B1
+
+atoms = B1(['Ta','C'], latticeconstant=4.455)
+
+KPTS = [2,3,4,5,6,7,8,9,10]
+TE = []
+ready = True
+for k in KPTS:
+
+    with jasp('hwk4/TaC-kpt-{0}'.format(k),
+              encut=450,
+              kpts=(k,k,k),
+              xc='PBE',
+              atoms=atoms) as calc:
+        try:
+            TE.append(atoms.get_potential_energy())
+        except (VaspSubmitted, VaspQueued):
+            ready = False
+
+if not ready:
+    import sys; sys.exit()
+
+import matplotlib.pyplot as plt
+plt.plot(KPTS, TE)
+plt.axhline(y= TE[-1] + 0.05)
+plt.axhline(y= TE[-1] - 0.05)
+plt.xlabel('KPTS')
+plt.ylabel('Total Energy (eV)')
+plt.savefig('hwk4/TaC-kpts.png')
+#+END_SRC
+
+#+RESULTS:
+
+[[./hwk4/TaC-kpts.png]]
+
+Here we have to make a judgement call. We could continue increasing the number of k-points, because you cannot be sure of the convergence. We will assume here, that the energy is converged to at least 50 meV at an (8,8,8) k-point grid, and that will put bounds on the difference we are about to calculate.
+
+Now, we can do a single calculation for each species, at the volumes we previously identified.
+
+#+BEGIN_SRC python :results output
+from ase.lattice.cubic import BodyCenteredCubic
+from jasp import *
+
+# first BCC Ta
+atoms = BodyCenteredCubic('Ta')
+atoms.set_volume(36.221)
+with jasp('hwk4/bcc-Ta',
+          encut=450,
+          kpts=(8,8,8),
+          xc='PBE',
+          atoms = atoms) as calc:
+    try:
+        E_Ta = atoms.get_potential_energy()/len(atoms)
+    except (VaspSubmitted, VaspQueued):
+        E_Ta = None
+
+# Now graphite
+from ase.lattice.hexagonal import Graphite
+atoms = Graphite('C', latticeconstant={'a':2.4612, 'c':6.7079})
+atoms.set_volume(37)
+
+with jasp('hwk4/graphite',
+          xc='PBE',
+          encut=450,
+          kpts=(8,8,8),
+          ibrion=1,
+          isif=4,
+          nsw=50,
+          atoms=atoms) as calc:
+    try:
+        E_graphite = atoms.get_potential_energy()/len(atoms)
+    except (VaspSubmitted, VaspQueued):
+        E_graphite = None
+
+# Now TaC
+from ase.lattice.compounds import B1
+atoms = B1(['Ta','C'], latticeconstant=4.455)
+
+with jasp('hwk4/TaC',
+          xc='PBE',
+          kpts=(8,8,8),
+          encut=450,
+          ibrion=1,
+          isif=2,
+          nsw=50,
+          atoms=atoms) as calc:
+    try:
+        nTaC = len(atoms)/2.0
+        E_TaC = atoms.get_potential_energy()/nTaC
+    except (VaspSubmitted, VaspQueued):
+        E_TaC = None
+print (E_Ta, E_graphite, E_TaC)
+
+if None not in (E_Ta, E_graphite, E_TaC):
+    Hf = E_TaC - E_graphite - E_Ta
+    print 'Hf = {0:1.3f} eV/f.u.'.format(Hf)
+    print 'Hf_exp = {0:1.3f} eV/f.u.'.format(-34.6/23.0609)
+    print 'Hf = {0:1.3f} kcal/mol'.format(Hf*23.0609)
+    print 'Hf_exp = {0:1.3f} kcal/mol'.format(-34.6)
+#+END_SRC
+
+#+RESULTS:
+: (-11.8658735, -9.21570425, -22.245994)
+: Hf = -1.164 eV/f.u.
+: Hf_exp = -1.500 eV/f.u.
+: Hf = -26.852 kcal/mol
+: Hf_exp = -34.600 kcal/mol
+
+We can be reasonably confident the convergence error in this calculation is less than 0.05 eV, which does not explain the discrepancy between the experiment and calculation (~0.33 eV). This error must be due to other factors that could include:
+
+1. We did not include temperature effects on the formation energy.
+2. Non-cancelling errors due to the hybridized bonds in graphite that are different than the Ta-C bonds.
+3. The PBE functional does not model van der waal forces very accurately, and these are important in graphite.
