@@ -82,7 +82,7 @@ NO CLASS
 Molecular properties, vibrational calculations, dipole moments, etc...
 ** DONE <2012-09-19 Wed>
 Molecular reactions, barriers
-** <2012-09-24 Mon>
+** DONE <2012-09-24 Mon>
 Intro to gilgamesh
 ** DONE <2012-09-26 Wed>
 NO CLASS
@@ -112,16 +112,16 @@ Bulk electronic structure, band structure, atom-projected dos
 ** DONE <2012-10-17 Wed>
    CLOSED: [2012-10-22 Mon 14:19]
 Magnetism
-** <2012-10-22 Mon>
+** DONE <2012-10-22 Mon>
 Introduction to surface construction, relaxation, work function
-** <2012-10-24 Wed>
+** DONE <2012-10-24 Wed>
 Adsorption, adsorbate vibrations
 
 *** Homework 4 is due
-** <2012-10-29 Mon>
+** DONE <2012-10-29 Mon>
 NO CLASS
-** <2012-10-31 Wed>
-to be determined
+** DONE <2012-10-31 Wed>
+
 *** Mini-project 1 is due
 For mini-project 1 you should develop a small piece of python code that performs an "analysis" of a calculation results.  Some examples include:
 1. Implement an uncertainty analysis on the estimated parameters in an equation of state, e.g. what is the 95% confidence interval on the minimum volume and bulk modulus. You may use any EOS and approach you want. You may use data from dft-book or you can calculate or use your own.
@@ -133,12 +133,16 @@ For mini-project 1 you should develop a small piece of python code that performs
 
 You must put your project on your gitHUB account, and send me the link to it. There should be a README.org file that explains the project, what it is, how to use your code, and any known limitations. There should be an example org-file that contains a description of a specific problem you are solving with your code, an example script that solves the problem, and the output of the script, including any figures. Your code should also work for me when I clone your git repository. Part of the grade for this assignment will be based on how easy it is to figure out what you are doing, how the code is organized, commented, etc...
 
-** <2012-11-05 Mon>
-Surface reactions, barriers
-** <2012-11-07 Wed>
+** DONE <2012-11-05 Mon>
+
+** DONE <2012-11-07 Wed>
 NO CLASS
 ** <2012-11-12 Mon>
-Coverage dependent adsorption properties, adsorbate phase behavior
+Electronic structure-reactivity relationships
+** <2012-11-14 Wed>
+alloy reactivity
+** <2012-11-19 Mon>
+coverage dependence
 ** <2012-11-21 Wed>
 *** Mini-project 2 is due
 For mini-project 2 you will contribute to a collaborative research project to compute equations of state for oxide polymorphs. You will compute the EOS for four oxide polymorphs using two different exchange correlation functionals. You must run this in your gilgamesh account home directory:
@@ -197,12 +201,8 @@ It will take a while (several minutes) to download everything.
 
 In the newly formed oxide-polymorphs you will find instructions in 06640-f12-oxide-polymorphs.org. In that file you will find instructions on what to do, and how to do it.
 
-** <2012-11-19 Mon>
-DFT+U and hybrid functionals
-** <2012-11-21 Wed>
-Cluster expansions in alloy phase behavior
 ** <2012-11-26 Mon>
-Phonons ?
+DFT+U / hybrid functionals?
 ** <2012-11-28 Wed>
 Advanced topics I?
 ** <2012-12-03 Mon>
@@ -210,4 +210,4 @@ Advanced topics II?
 ** <2012-12-05 Wed>
 Advanced topics III?
 *** Final projects are due
-You will choose your final project. The scope if up to you, and you should outline a proposal of what you want to do, how many calculations you think need to be done, and what you will learn from it. Discuss the proposal with me and then, get to work!
+You will choose your final project. The scope is up to you, and you should outline a proposal of what you want to do, how many calculations you think need to be done, and what you will learn from it. Discuss the proposal with me and then, get to work!
