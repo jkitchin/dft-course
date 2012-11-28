@@ -1,0 +1,253 @@
+#+TITLE:     Databases and DFT
+#+AUTHOR:    John Kitchin
+#+EMAIL:     jkitchin@cmu.edu
+#+DATE:      2012-11-28 Wed
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+* Tools for generating data
+  1. emacs + org-mode
+  2. python + ase
+
+* Tools for sharing data
+  1. hard-drive/common network
+  2. gitHUB
+
+     For project 2, we ran about 8900 calculations! The repository is
+     just over 50 GB.
+
+* Documenting your work
+emacs + org-mode enables you to interleave the narrative description
+of your work with the code that sets up, runs the calculations
+and which analyzes the results, including making and displaying
+the figures.
+
+** Documenting your results
+
+Here is an example of code and some results.
+#+BEGIN_SRC python :results output :exports both
+from ase import Atoms, Atom
+from jasp import *
+import numpy as np
+np.set_printoptions(precision=3, suppress=True)
+
+co = Atoms([Atom('C',[0,   0, 0]),
+            Atom('O',[1.2, 0, 0])],
+            cell=(6., 6., 6.))
+
+with jasp('simple-co', #output dir
+          xc='PBE',  # the exchange-correlation functional
+          nbands=6,  # number of bands
+          encut=350, # planewave cutoff
+          ismear=1,  # Methfessel-Paxton smearing
+          sigma=0.01,# very small smearing factor for a molecule
+          atoms=co) as calc:
+    print 'energy = {0} eV'.format(co.get_potential_energy())
+    print co.get_forces()
+#+END_SRC
+
+#+RESULTS:
+: energy = -14.687906 eV
+: [[ 5.095  0.     0.   ]
+:  [-5.095  0.     0.   ]]
+
+Note that this contains all the information you need to reproduce the calculation. This level of detail is rarely seen in publications! In mod:jasp we provide several ways to represent the calculation results.
+
+*** Representing the result in nicely printed format
+There is a utility called =jaspsum= which "summarizes" a jasp calculation by printing a reasonably formatted output summary. Here is an example:
+
+#+BEGIN_SRC python :results output
+from jasp import *
+with jasp('simple-co') as calc:
+    print calc
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+: -----------------------------
+  VASP calculation from /home/jkitchin/dft-course/lectures/simple-co
+  converged: True
+  Energy = -14.687906 eV
+
+  Unit cell vectors (angstroms)
+        x       y     z      length
+  a0 [ 6.000  0.000  0.000] 6.000
+  a1 [ 0.000  6.000  0.000] 6.000
+  a2 [ 0.000  0.000  6.000] 6.000
+  a,b,c,alpha,beta,gamma (deg): 6.000 6.000 6.000 90.0 90.0 90.0
+  Unit cell volume = 216.000 Ang^3
+  Stress (GPa):xx,   yy,    zz,    yz,    xz,    xy
+            -66.528 -17.624 -17.624  0.000  0.000  0.000
+ Atom#  sym       position [x,y,z]         tag  rmsForce constraints
+   0    C   [0.000      0.000      0.000]   0   5.10      T T T
+   1    O   [1.200      0.000      0.000]   0   5.10      T T T
+--------------------------------------------------
+
+INCAR Parameters:
+-----------------
+        nbands: 6
+        ismear: 1
+         encut: 350.0
+         sigma: 0.01
+        magmom: None
+          prec: Normal
+          kpts: [1, 1, 1]
+    reciprocal: False
+            xc: PBE
+           txt: -
+         gamma: False
+
+Pseudopotentials used:
+----------------------
+C: potpaw_PBE/C/POTCAR (git-hash: 2272d6745da89a3d872983542cef1d18750fc952)
+O: potpaw_PBE/O/POTCAR (git-hash: 9a0489b46120b0cad515d935f44b5fbe3a3b1dfa)
+#+end_example
+
+This summary actually contains more information than the script that ran the calculation because it lists the pseudopotentials that were used, and some of the default values that were not specified before. One disadvantage of that output is that it is not readily machine readable. You have to parse it.
+
+*** Representing the results as json
+#+BEGIN_SRC python :results output
+from jasp import *
+with jasp('simple-co') as calc:
+    print calc.json
+#+END_SRC
+
+#+RESULTS:
+: {"INCAR": {"ldau": null, "eint": null, "lclimb": null, "iband": null, "timestep": null, "nomega": null, "ldau_luj": null, "fnmin": null, "ispin": null, "lcorr": null, "iopt": null, "ichain": null, "ismear": 1, "lscalapack": null, "emin": null, "lwave": null, "maxmove": null, "ngxf": null, "ebreak": null, "lplane": null, "npar": null, "istart": null, "nkred": null, "ialgo": null, "ngz": null, "system": null, "prec": "Normal", "luse_vdw": null, "icharg": null, "sdalpha": null, "nfree": null, "spring": null, "lorbit": null, "zab_vdw": null, "ngy": null, "kspacing": null, "pomass": null, "magmom": null, "lpard": null, "sdr": null, "ropt": null, "aldac": null, "nelm": null, "lsepb": null, "nkredx": null, "nkredy": null, "nkredz": null, "lelf": null, "stol": null, "lvdw": null, "ldauu": null, "zval": null, "nsim": null, "ngyf": null, "deper": null, "lscalu": null, "lglobal": null, "ldipol": null, "precfock": null, "symprec": null, "lvhar": null, "falphadec": null, "weimin": null, "ftimedec": null, "ldneb": null, "maxmix": null, "vdwgr": null, "nwrite": null, "lmaxmix": null, "param2": null, "param1": null, "lbfgsmem": null, "nomegar": null, "smass": null, "laechg": null, "efield": null, "potim": null, "idipol": null, "lhfcalc": null, "lasph": null, "emax": null, "isym": null, "ldauprint": null, "ferdo": null, "encut": 350.0, "lcharg": null, "nbands": 6, "ngzf": null, "images": null, "ediff": null, "enaug": null, "rwigs": null, "dipol": null, "nelect": null, "bmix": null, "fdstep": null, "invcurve": null, "isif": null, "ddr": null, "hfscreen": null, "ftimeinc": null, "lthomas": null, "teend": null, "addgrid": null, "ltangentold": null, "voskown": null, "ediffg": null, "jacobian": null, "vdwrn": null, "nsw": null, "iniwav": null, "algo": null, "nelmdl": null, "amix_mag": null, "aexx": null, "ldaul": null, "lnebcell": null, "encutfock": null, "aggac": null, "ftimemax": null, "ldiag": null, "snl": null, "ldauj": null, "drotmax": null, "nbmod": null, "lasync": null, "nblk": null, "gga": null, "kpuse": null, "ferwe": null, "tebeg": null, "bmix_mag": null, "aggax": null, "iwavpr": null, "encutgw": null, "amin": null, "nupdown": null, "kgamma": null, "loptics": null, "falpha": null, "dfnmax": null, "lvtot": null, "llineopt": null, "ldautype": null, "ngx": null, "dfnmin": null, "ibrion": null, "amix": null, "time": null, "nelmin": null, "lepsilon": null, "lsepk": null, "sigma": 0.01}, "input": {"kpts": [1, 1, 1], "kpts_nintersections": null, "reciprocal": false, "setups": null, "xc": "PBE", "txt": "-", "gamma": false}, "atoms": {"cell": [[6.0, 0.0, 0.0], [0.0, 6.0, 0.0], [0.0, 0.0, 6.0]], "symbols": ["C", "O"], "tags": [0, 0], "pbc": [true, true, true], "positions": [[0.0, 0.0, 0.0], [1.2000000000000166, 0.0, 0.0]]}}
+
+*** Representing the results as python code
+#+BEGIN_SRC python :results output
+from jasp import *
+with jasp('simple-co') as calc:
+    print calc.python
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+from numpy import array
+from ase import Atom, Atoms
+from jasp import *
+
+atoms = Atoms([Atom('C',[0.0, 0.0, 0.0]),
+               Atom('O',[1.2, 0.0, 0.0])],
+               cell = [[6.0, 0.0, 0.0],
+                       [0.0, 6.0, 0.0],
+                       [0.0, 0.0, 6.0]])
+
+with jasp('simple-co',
+          nbands = 6,
+          ismear = 1,
+          encut = 350.0,
+          sigma = 0.01,
+          prec = 'Normal',
+          kpts = [1, 1, 1],
+          reciprocal = False,
+          xc = 'PBE',
+          txt = '-',
+          gamma = False,
+          atoms=atoms) as calc:
+    # your code here
+
+#+end_example
+
+*** Reprenting the results as xml
+#+BEGIN_SRC python :results output
+from jasp import *
+with jasp('simple-co') as calc:
+    print calc.xml
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+<?xml version="1.0" encoding="utf-8"?>
+<pyxs:obj xmlns:pyxs="http://projects.coder.cl/pyxser/model/" version="1.0" type="vasp" module="jasp.serialize" objid="id52737680">
+  <pyxs:col type="dict" name="d">
+    <pyxs:col type="dict" name="INCAR">
+      <pyxs:prop type="int" name="ismear">1</pyxs:prop>
+      <pyxs:prop type="str" name="prec">Normal</pyxs:prop>
+      <pyxs:prop type="float" name="encut">350.0</pyxs:prop>
+      <pyxs:prop type="int" name="nbands">6</pyxs:prop>
+      <pyxs:prop type="float" name="sigma">0.01</pyxs:prop>
+    </pyxs:col>
+    <pyxs:col type="dict" name="input">
+      <pyxs:col type="list" name="kpts">
+        <pyxs:prop type="int" name="kpts">1</pyxs:prop>
+        <pyxs:prop type="int" name="kpts">1</pyxs:prop>
+        <pyxs:prop type="int" name="kpts">1</pyxs:prop>
+      </pyxs:col>
+      <pyxs:prop type="bool" name="reciprocal">False</pyxs:prop>
+      <pyxs:prop type="str" name="xc">PBE</pyxs:prop>
+      <pyxs:prop type="str" name="txt">-</pyxs:prop>
+      <pyxs:prop type="bool" name="gamma">False</pyxs:prop>
+    </pyxs:col>
+    <pyxs:col type="dict" name="atoms">
+      <pyxs:col type="list" name="cell">
+        <pyxs:col type="list" name="cell">
+          <pyxs:prop type="float" name="cell">6.0</pyxs:prop>
+          <pyxs:prop type="float" name="cell">0.0</pyxs:prop>
+          <pyxs:prop type="float" name="cell">0.0</pyxs:prop>
+        </pyxs:col>
+        <pyxs:col type="list" name="cell">
+          <pyxs:prop type="float" name="cell">0.0</pyxs:prop>
+          <pyxs:prop type="float" name="cell">6.0</pyxs:prop>
+          <pyxs:prop type="float" name="cell">0.0</pyxs:prop>
+        </pyxs:col>
+        <pyxs:col type="list" name="cell">
+          <pyxs:prop type="float" name="cell">0.0</pyxs:prop>
+          <pyxs:prop type="float" name="cell">0.0</pyxs:prop>
+          <pyxs:prop type="float" name="cell">6.0</pyxs:prop>
+        </pyxs:col>
+      </pyxs:col>
+      <pyxs:col type="list" name="symbols">
+        <pyxs:prop type="str" name="symbols">C</pyxs:prop>
+        <pyxs:prop type="str" name="symbols">O</pyxs:prop>
+      </pyxs:col>
+      <pyxs:col type="list" name="tags">
+        <pyxs:prop type="int" name="tags">0</pyxs:prop>
+        <pyxs:prop type="int" name="tags">0</pyxs:prop>
+      </pyxs:col>
+      <pyxs:col type="list" name="pbc">
+        <pyxs:prop type="bool" name="pbc">True</pyxs:prop>
+        <pyxs:prop type="bool" name="pbc">True</pyxs:prop>
+        <pyxs:prop type="bool" name="pbc">True</pyxs:prop>
+      </pyxs:col>
+      <pyxs:col type="list" name="positions">
+        <pyxs:col type="list" name="positions">
+          <pyxs:prop type="float" name="positions">0.0</pyxs:prop>
+          <pyxs:prop type="float" name="positions">0.0</pyxs:prop>
+          <pyxs:prop type="float" name="positions">0.0</pyxs:prop>
+        </pyxs:col>
+        <pyxs:col type="list" name="positions">
+          <pyxs:prop type="float" name="positions">1.2</pyxs:prop>
+          <pyxs:prop type="float" name="positions">0.0</pyxs:prop>
+          <pyxs:prop type="float" name="positions">0.0</pyxs:prop>
+        </pyxs:col>
+      </pyxs:col>
+    </pyxs:col>
+  </pyxs:col>
+</pyxs:obj>
+
+#+end_example
+
+That looks intimidating, but it is not for you to read, but a machine, for example a function in mod:ase.io.
+
+** Databases
+The previous examples solve one problem: how to represent a result in a way that a computer can read them. To do that, we need a structured data format like json, xml or python. This capability forms the foundation for collecting large datasets for a common purpose.
+
+A new problem now arises, and that is one of searching. We saw this problem already in project 2 in trying to extract pieces of the table containing all the results. This problem is best solved by a database.
+
+
+#+BEGIN_SRC sqlite :db cdf-3.sqlite :results scalar
+.mode tabs
+select * from sqlite_master;
+.tables
+#+END_SRC
