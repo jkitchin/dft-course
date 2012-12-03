@@ -232,7 +232,7 @@ You will email me a pdf containing the report by the time the final presentation
 
 2. An oral presentation (50% of the final project). You will have 8 minutes to present your project to the class. Due to the number of students that have to present, the time will be strictly enforced. You lose a letter grade for going over. There will be 2 minutes of questions.
 
-Here is what I suggest for your slides. You should not have more than six slides (or automatic loss of letter grade).
+Here is what I suggest for your slides. You should not have more than six slides (or automatic loss of letter grade) to present. you can have as many backup slides as you want.
 
  - title
  - introduction to the problem
